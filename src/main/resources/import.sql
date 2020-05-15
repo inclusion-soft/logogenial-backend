@@ -1,0 +1,1 @@
+insert into "Persona" ( nombres, apellidos, telefono, correo, direccion) values ('PEDRO','PEREZ','322222','corre@mail.co','dir222');
