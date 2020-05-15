@@ -4,10 +4,12 @@ import com.rc.logenialbackend.dto.Persona;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
 import com.rc.logenialbackend.model.PersonaRepository;
 import com.rc.logenialbackend.service.IPersonaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PersonaService implements IPersonaService {
+    @Autowired
     private PersonaRepository repository;
     @Override
     public Persona create(Persona persona) {
