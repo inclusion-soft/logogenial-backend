@@ -5,7 +5,13 @@ import com.rc.logenialbackend.exception.ResourceNotFoundException;
 import com.rc.logenialbackend.model.PersonaRepository;
 import com.rc.logenialbackend.service.IPersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PersonaService implements IPersonaService {
@@ -62,4 +68,20 @@ public class PersonaService implements IPersonaService {
         }
         throw new ResourceNotFoundException("User", "id", Integer.toString(persona.getId()));
     }
+
+    @Override
+    public List<Persona> findAllSearch(int page, int size) {
+        Pageable paging = PageRequest.of(page, size
+        //        , Sort.by(sortBy)
+        );
+
+        Page<Persona> pagedResult = repository.findAll(paging);
+
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Persona>();
+        }
+    }
+
 }
