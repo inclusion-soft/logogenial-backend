@@ -3,6 +3,7 @@ package com.rc.logenialbackend.controller;
 import com.rc.logenialbackend.dto.Persona;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
 import com.rc.logenialbackend.model.PersonaPagination;
+import com.rc.logenialbackend.model.ResultSearchData;
 import com.rc.logenialbackend.service.IPersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -76,11 +77,11 @@ public class PersonaController {
     }*/
 
     @GetMapping("/search")
-    public ResponseEntity<List<Persona>> search(@RequestParam(name = "page", defaultValue = "0") int page,
-                                          @RequestParam(name = "size", defaultValue = "10") int size) {
+    public ResponseEntity<ResultSearchData<Persona>> search(@RequestParam(name = "pageIndex", defaultValue = "0") int pageIndex,
+                                          @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
         //PageRequest pageRequest = PageRequest.of(page, size);
-        List<Persona> list = personaService.findAllSearch(page, size);
-        return new ResponseEntity<List<Persona>>(list, new HttpHeaders(), HttpStatus.OK);
+        ResultSearchData<Persona> datos = personaService.findAllSearch(pageIndex, pageSize);
+        return new ResponseEntity<ResultSearchData<Persona>>(datos, new HttpHeaders(), HttpStatus.OK);
 
     }
 }

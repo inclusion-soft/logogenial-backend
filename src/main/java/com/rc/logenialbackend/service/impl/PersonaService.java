@@ -3,6 +3,7 @@ package com.rc.logenialbackend.service.impl;
 import com.rc.logenialbackend.dto.Persona;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
 import com.rc.logenialbackend.model.PersonaRepository;
+import com.rc.logenialbackend.model.ResultSearchData;
 import com.rc.logenialbackend.service.IPersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PersonaService implements IPersonaService {
+public class PersonaService extends  BaseService<Persona> implements IPersonaService {
     @Autowired
     private PersonaRepository repository;
     @Override
@@ -70,18 +71,14 @@ public class PersonaService implements IPersonaService {
     }
 
     @Override
-    public List<Persona> findAllSearch(int page, int size) {
+    public ResultSearchData<Persona> findAllSearch(int page, int size) {
         Pageable paging = PageRequest.of(page, size
         //        , Sort.by(sortBy)
         );
 
         Page<Persona> pagedResult = repository.findAll(paging);
+        return (ResultSearchData<Persona>) this.getResultSearch(pagedResult);
 
-        if(pagedResult.hasContent()) {
-            return pagedResult.getContent();
-        } else {
-            return new ArrayList<Persona>();
-        }
     }
 
 }

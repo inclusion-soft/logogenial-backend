@@ -2,10 +2,7 @@ package com.rc.logenialbackend.service;
 
 import com.rc.logenialbackend.dto.Persona;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-
-import java.util.List;
+import com.rc.logenialbackend.model.ResultSearchData;
 
 public interface IPersonaService {
     Persona create(Persona Persona);
@@ -20,5 +17,5 @@ public interface IPersonaService {
 
     Persona update(Persona Persona) throws ResourceNotFoundException;
 
-    List<Persona> findAllSearch(int page, int size);
+    ResultSearchData<Persona> findAllSearch(int page, int size);
 }
