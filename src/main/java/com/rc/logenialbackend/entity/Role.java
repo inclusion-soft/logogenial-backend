@@ -8,29 +8,38 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+/*@Getter
+@Setter*/
 
 @Entity
 @Table(name="roles")
-public class Role
-        //implements Serializable
-{
+public class Role implements Serializable{
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, length = 20)
-    private String username;
+    @Column(unique=true, length=20)
+    private String nombre;
 
-    @Column(length = 60)
-    private String password;
+    public Long getId() {
+        return id;
+    }
 
-    private Boolean enabled;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    @ManyToMany(mappedBy = "roles")
-    /*private List<Role> roles;*/
-    private Set<Usuario> usuarios;
+    public String getNombre() {
+        return nombre;
+    }
 
-    /*private static  final long serialVersionUID = 1L;*/
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 }
