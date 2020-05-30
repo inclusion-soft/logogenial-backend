@@ -1,16 +1,14 @@
 package com.rc.logenialbackend.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
-/*@Getter
-@Setter*/
-
+@Getter
+@Setter
 @Entity
 @Table(name="roles")
 public class Role implements Serializable{
@@ -22,24 +20,10 @@ public class Role implements Serializable{
     @Column(unique=true, length=20)
     private String nombre;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     /**
      *
      */
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private static final long serialVersionUID = 1L;
 }

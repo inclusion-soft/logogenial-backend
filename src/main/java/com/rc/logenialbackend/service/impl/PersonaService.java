@@ -72,13 +72,9 @@ public class PersonaService extends  BaseService<Persona> implements IPersonaSer
 
     @Override
     public ResultSearchData<Persona> findAllSearch(int page, int size) {
-        Pageable paging = PageRequest.of(page, size
-        //        , Sort.by(sortBy)
-        );
-
+        Pageable paging = PageRequest.of(page, size );
         Page<Persona> pagedResult = repository.findAll(paging);
         return (ResultSearchData<Persona>) this.getResultSearch(pagedResult);
-
     }
 
 }
