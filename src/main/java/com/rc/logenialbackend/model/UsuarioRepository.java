@@ -12,6 +12,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario,Integer> {
 
     public Usuario findByUsername(String username);
 
-    @Query("select u from usuarios u where u.username = ?1")
-    public Usuario findByUsernameCustom(String username);
+    /*@Query("select u from usuarios u where u.username = ?1")
+    public Usuario findByUsernameCustom(String username);*/
 }

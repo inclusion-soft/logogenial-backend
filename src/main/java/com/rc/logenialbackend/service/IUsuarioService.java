@@ -5,6 +5,9 @@ import com.rc.logenialbackend.exception.ResourceNotFoundException;
 import com.rc.logenialbackend.model.ResultSearchData;
 
 public interface IUsuarioService {
+
+    public Usuario findByUsername(String username);
+
     Usuario create(Usuario Usuario);
 
     void delete(Usuario Usuario) throws ResourceNotFoundException;
