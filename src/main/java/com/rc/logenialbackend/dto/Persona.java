@@ -8,10 +8,12 @@ import javax.persistence.*;
 @Setter
 @Table(name = "persona")
 public class Persona {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(columnDefinition = "VARCHAR(50)")
     private String nombres;
     @Column(columnDefinition = "VARCHAR(50)")
