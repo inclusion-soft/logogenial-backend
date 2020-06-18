@@ -3,8 +3,8 @@ package com.rc.logenialbackend.service.impl;
 import com.rc.logenialbackend.entity.Usuario;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
 
-import com.rc.logenialbackend.model.ResultSearchData;
-import com.rc.logenialbackend.model.UsuarioRepository;
+import com.rc.logenialbackend.model.shared.ResultSearchData;
+import com.rc.logenialbackend.model.repository.UsuarioRepository;
 import com.rc.logenialbackend.service.IUsuarioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,7 +2,7 @@ package com.rc.logenialbackend.service.impl;
 
 import com.rc.logenialbackend.entity.Categoria;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
-import com.rc.logenialbackend.model.ResultSearchData;
+import com.rc.logenialbackend.model.shared.ResultSearchData;
 import com.rc.logenialbackend.model.repository.ICategoriaRepository;
 import com.rc.logenialbackend.service.ICategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;

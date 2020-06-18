@@ -1,4 +1,4 @@
-package com.rc.logenialbackend.model.repository;
+package com.rc.logenialbackend.model.pagination;
 
 import com.rc.logenialbackend.entity.Categoria;
 import org.springframework.data.repository.PagingAndSortingRepository;

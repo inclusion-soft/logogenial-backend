@@ -2,7 +2,7 @@ package com.rc.logenialbackend.service;
 
 import com.rc.logenialbackend.entity.Usuario;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
-import com.rc.logenialbackend.model.ResultSearchData;
+import com.rc.logenialbackend.model.shared.ResultSearchData;
 
 public interface IUsuarioService {
 

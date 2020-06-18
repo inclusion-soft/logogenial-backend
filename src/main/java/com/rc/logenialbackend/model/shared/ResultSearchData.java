@@ -1,4 +1,4 @@
-package com.rc.logenialbackend.model;
+package com.rc.logenialbackend.model.shared;
 
 import lombok.Getter;
 import lombok.Setter;

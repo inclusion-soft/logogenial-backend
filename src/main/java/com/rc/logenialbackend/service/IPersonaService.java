@@ -2,9 +2,9 @@ package com.rc.logenialbackend.service;
 
 import com.rc.logenialbackend.dto.Persona;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
-import com.rc.logenialbackend.model.ResultSearchData;
+import com.rc.logenialbackend.model.shared.ResultSearchData;
 
-public interface IPersonaService {
+public interface IPersonaService<T> {
     Persona create(Persona Persona);
 
     void delete(Persona Persona) throws ResourceNotFoundException;

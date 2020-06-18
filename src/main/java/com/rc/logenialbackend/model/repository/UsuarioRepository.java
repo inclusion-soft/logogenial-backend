@@ -1,4 +1,4 @@
-package com.rc.logenialbackend.model;
+package com.rc.logenialbackend.model.repository;
 
 import com.rc.logenialbackend.entity.Usuario;
 import org.springframework.data.domain.Page;

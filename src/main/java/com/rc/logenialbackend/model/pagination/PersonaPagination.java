@@ -1,4 +1,4 @@
-package com.rc.logenialbackend.model;
+package com.rc.logenialbackend.model.pagination;
 
 import com.rc.logenialbackend.dto.Persona;
 import org.springframework.data.repository.PagingAndSortingRepository;

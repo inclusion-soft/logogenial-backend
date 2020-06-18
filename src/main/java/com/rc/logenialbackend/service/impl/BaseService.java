@@ -1,6 +1,6 @@
 package com.rc.logenialbackend.service.impl;
 
-import com.rc.logenialbackend.model.ResultSearchData;
+import com.rc.logenialbackend.model.shared.ResultSearchData;
 import org.springframework.data.domain.Page;
 
 public class BaseService <T>{
