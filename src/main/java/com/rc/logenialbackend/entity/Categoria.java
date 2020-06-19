@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 
 @Entity
-@Table(name="categoria")
+@Table(name="categoria", uniqueConstraints = @UniqueConstraint(name = "categoria_uk", columnNames = "nombre"))
 @SQLDelete(sql = "UPDATE categoria SET eliminado = SYSDATE WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "eliminado is  null")
 public class Categoria    {

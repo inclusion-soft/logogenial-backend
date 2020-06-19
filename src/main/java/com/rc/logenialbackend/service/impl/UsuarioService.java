@@ -5,6 +5,7 @@ import com.rc.logenialbackend.exception.ResourceNotFoundException;
 
 import com.rc.logenialbackend.model.shared.ResultSearchData;
 import com.rc.logenialbackend.model.repository.UsuarioRepository;
+import com.rc.logenialbackend.service.IGenericService;
 import com.rc.logenialbackend.service.IUsuarioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService extends  BaseService<Usuario> implements IUsuarioService,  UserDetailsService {
+public class UsuarioService extends  BaseService<Usuario> implements IUsuarioService<Usuario>,  UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;
@@ -51,7 +52,6 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
         return new User(usuario.getUsername(), usuario.getPassword(),  usuario.getEnabled() > 0 ? true: false, true, true, true, authorities);
     }
 
-    @Override
     @Transactional(readOnly=true)
     public Usuario findByUsername(String username) {
         return repository.findByUsername(username);

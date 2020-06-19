@@ -2,10 +2,8 @@ package com.rc.logenialbackend.controller;
 
 import com.rc.logenialbackend.entity.Categoria;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
-import com.rc.logenialbackend.model.shared.ResultSearchData;
-import com.rc.logenialbackend.service.ICategoriaService;
+import com.rc.logenialbackend.service.IGenericSimpleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class CategoriaController  {
 
     @Autowired
-    private ICategoriaService service;
+    private IGenericSimpleService<Categoria> service;
 
     @GetMapping(value = "/health")
     public ResponseEntity<String> health() {
@@ -39,12 +37,6 @@ public class CategoriaController  {
         return new ResponseEntity<>(service.update(Categoria), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Object> delete(@RequestBody Categoria Categoria) throws ResourceNotFoundException {
-        service.delete(Categoria);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @DeleteMapping("/deleteById")
     public ResponseEntity<Object> delete(@RequestParam int id) throws ResourceNotFoundException {
         service.deleteById(id);
@@ -56,11 +48,4 @@ public class CategoriaController  {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<ResultSearchData<Categoria>> search(@RequestParam(name = "page", defaultValue = "0") int page,
-                                                              @RequestParam(name = "size", defaultValue = "10") int size, @RequestParam(name = "sortBy") String sortBy
-            , @RequestParam(name = "sortOrder") String sortOrder ) {
-        ResultSearchData<Categoria> datos = service.findAllSearch(page, size,sortBy, sortOrder);
-        return new ResponseEntity<ResultSearchData<Categoria>>(datos, new HttpHeaders(), HttpStatus.OK);
-    }
 }

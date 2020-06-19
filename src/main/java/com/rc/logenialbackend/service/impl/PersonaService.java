@@ -3,30 +3,18 @@ package com.rc.logenialbackend.service.impl;
 import com.rc.logenialbackend.dto.Persona;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
 import com.rc.logenialbackend.model.repository.PersonaRepository;
-import com.rc.logenialbackend.model.shared.ResultSearchData;
-import com.rc.logenialbackend.service.IPersonaService;
+import com.rc.logenialbackend.service.IGenericSimpleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonaService extends BaseService<Persona> implements IPersonaService {
+public class PersonaService extends BaseService<Persona> implements IGenericSimpleService<Persona> {
     @Autowired
     private PersonaRepository repository;
 
     @Override
     public Persona create(Persona persona) {
         return repository.save(persona);
-    }
-
-    @Override
-    public void delete(Persona persona) throws ResourceNotFoundException {
-        if (repository.findById(persona.getId()).isPresent()) {
-            repository.delete(persona);
-        }
-        throw new ResourceNotFoundException("User", "id", Integer.toString(persona.getId()));
     }
 
     @Override
@@ -58,13 +46,6 @@ public class PersonaService extends BaseService<Persona> implements IPersonaServ
             return repository.save(persona);
         }
         throw new ResourceNotFoundException("User", "id", Integer.toString(persona.getId()));
-    }
-
-    @Override
-    public ResultSearchData<Persona> findAllSearch(int page, int size) {
-        Pageable paging = PageRequest.of(page, size);
-        Page<Persona> pagedResult = repository.findAll(paging);
-        return (ResultSearchData<Persona>) this.getResultSearch(pagedResult);
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "datagenia")
+@Table(name = "datagenia", uniqueConstraints = @UniqueConstraint(name = "datagenia_uk", columnNames = {"nombre","dificultad"}))
 @SQLDelete(sql = "UPDATE datagenia SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "eliminado is  null")
 public class Datagenia {
