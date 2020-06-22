@@ -16,6 +16,5 @@ public interface IGenericService<T> {
 
     T update(T T) throws ResourceNotFoundException;
 
-    ResultSearchData<T> findAllSearch(int page, int size);
     ResultSearchData<T> findAllSearch(int page, int size, String sortBy, String sortOrder );
 }

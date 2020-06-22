@@ -62,13 +62,6 @@ public class DatageniaService extends BaseService<Datagenia> implements IGeneric
     }
 
     @Override
-    public ResultSearchData<Datagenia> findAllSearch(int page, int size) {
-        Pageable paging = PageRequest.of(page, size);
-        Page<Datagenia> pagedResult = repository.findAll(paging);
-        return (ResultSearchData<Datagenia>) this.getResultSearch(pagedResult);
-    }
-
-    @Override
     public ResultSearchData<Datagenia> findAllSearch(int page, int size, String sortBy, String sortOrder) {
         Pageable paging = PageRequest.of(page, size, sortOrder.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending());
         Page<Datagenia> pagedResult = repository.findAll(paging);

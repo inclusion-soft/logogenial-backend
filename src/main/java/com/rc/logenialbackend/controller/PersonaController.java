@@ -2,8 +2,10 @@ package com.rc.logenialbackend.controller;
 
 import com.rc.logenialbackend.dto.Persona;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
-import com.rc.logenialbackend.service.IGenericSimpleService;
+import com.rc.logenialbackend.model.shared.ResultSearchData;
+import com.rc.logenialbackend.service.IGenericService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class PersonaController {
 
     @Autowired
-    private IGenericSimpleService<Persona> personaService;
+    private IGenericService<Persona> personaService;
 
     @GetMapping(value = "/health")
     public ResponseEntity<String> health() {
@@ -46,5 +48,13 @@ public class PersonaController {
     @GetMapping("/findAll")
     public ResponseEntity<Iterable<Persona>> findAll() {
         return new ResponseEntity<>(personaService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<ResultSearchData<Persona>> search(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                              @RequestParam(name = "size", defaultValue = "10") int size, @RequestParam(name = "sortBy") String sortBy
+            , @RequestParam(name = "sortOrder") String sortOrder ) {
+        ResultSearchData<Persona> datos = personaService.findAllSearch(page, size,sortBy, sortOrder);
+        return new ResponseEntity<ResultSearchData<Persona>>(datos, new HttpHeaders(), HttpStatus.OK);
     }
 }
