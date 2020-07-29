@@ -14,10 +14,10 @@ import java.util.Date;
 @Setter
 
 @Entity
-@Table(name="categoria", uniqueConstraints = @UniqueConstraint(name = "categoria_uk", columnNames = "nombre"))
-@SQLDelete(sql = "UPDATE categoria SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Table(name="tema", uniqueConstraints = @UniqueConstraint(name = "tema_uk", columnNames = "nombre"))
+@SQLDelete(sql = "UPDATE tema SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "eliminado is  null")
-public class Categoria    {
+public class Tema    {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

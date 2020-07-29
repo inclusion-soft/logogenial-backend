@@ -1,8 +1,6 @@
 package com.rc.logenialbackend.service.impl;
 
 import com.rc.logenialbackend.entity.Archivo;
-import com.rc.logenialbackend.entity.Categoria;
-import com.rc.logenialbackend.entity.Datagenia;
 import com.rc.logenialbackend.exception.ResourceNotFoundException;
 import com.rc.logenialbackend.model.repository.IArchivoRepository;
 import com.rc.logenialbackend.service.IFileService;
