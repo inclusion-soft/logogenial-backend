@@ -14,10 +14,10 @@ import java.util.Date;
 @Setter
 
 @Entity
-@Table(name="categoria", uniqueConstraints = @UniqueConstraint(name = "categoria_uk", columnNames = "nombre"))
-@SQLDelete(sql = "UPDATE categoria SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Table(name="archivo", uniqueConstraints = @UniqueConstraint(name = "archivo_uk", columnNames = "nombre"))
+@SQLDelete(sql = "UPDATE archivo SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "eliminado is  null")
-public class Categoria    {
+public class Archivo    {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -34,6 +34,4 @@ public class Categoria    {
     /** The eliminado. */
     @Column(name = "eliminado")
     public Date eliminado;
-
-
 }

@@ -11,6 +11,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 @Service
 public class DatageniaService extends BaseService<Datagenia> implements IGenericService<Datagenia> {
@@ -60,6 +67,21 @@ public class DatageniaService extends BaseService<Datagenia> implements IGeneric
         }
         throw new ResourceNotFoundException("datagenia", "id", Integer.toString(datagenia.getId()));
     }
+
+//    public Datagenia upload(MultipartFile archivo, int id) throws IOException {
+//        if(!archivo.isEmpty()){
+//            Optional<Datagenia> datagenia = repository.findById(id);
+//            if(!datagenia.isPresent()) {
+//                throw new ResourceNotFoundException("datagenia", "id", Integer.toString(datagenia.getId()));
+//            }
+//            String nombreArchivo = archivo.getName() + java.time.LocalDate.now();
+//            Path rutaArchivo = Paths.get("C:\\dev\\upload-logogenial").resolve(nombreArchivo);
+//            Files.copy(archivo.getInputStream(),rutaArchivo );
+//            datagenia.get().setFile(nombreArchivo);
+//            return datagenia.get();
+//        }
+//        throw new IOException("No fue posible registrar el archivo a la estructura datagenial");
+//    }
 
     @Override
     public ResultSearchData<Datagenia> findAllSearch(int page, int size, String sortBy, String sortOrder) {

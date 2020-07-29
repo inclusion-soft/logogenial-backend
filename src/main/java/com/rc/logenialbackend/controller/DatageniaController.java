@@ -10,6 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping({ "/datagenia-api" })
@@ -35,8 +39,8 @@ public class DatageniaController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> delete(@RequestBody Datagenia Datagenia) throws ResourceNotFoundException {
-        service.delete(Datagenia);
+    public ResponseEntity<Object> delete(@RequestBody Datagenia datagenia) throws ResourceNotFoundException {
+        service.delete(datagenia);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

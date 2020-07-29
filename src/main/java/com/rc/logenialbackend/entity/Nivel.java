@@ -14,10 +14,10 @@ import java.util.Date;
 @Setter
 
 @Entity
-@Table(name="categoria", uniqueConstraints = @UniqueConstraint(name = "categoria_uk", columnNames = "nombre"))
-@SQLDelete(sql = "UPDATE categoria SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Table(name="nivel", uniqueConstraints = @UniqueConstraint(name = "nivel_uk", columnNames = "nombre"))
+@SQLDelete(sql = "UPDATE nivel SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "eliminado is  null")
-public class Categoria    {
+public class Nivel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -25,6 +25,9 @@ public class Categoria    {
 
     @Column(columnDefinition = "VARCHAR(30) NOT NULL")
     private String nombre;
+
+    @Column(columnDefinition = "INT NOT NULL")
+    private int dificultad;
 
     /** The activo. */
     @Column(name = "activo", columnDefinition = "BOOLEAN NOT NULL DEFAULT TRUE")
