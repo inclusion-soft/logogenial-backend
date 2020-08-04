@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping({ "/tema-api" })
+@RequestMapping({ "/v1/tema-api" })
 @CrossOrigin(origins= {"*"})
 public class TemaController  {
 

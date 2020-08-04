@@ -11,15 +11,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping({ "/nivel-api" })
+@RestController
+@RequestMapping({ "/v1/nivel-api" })
 @CrossOrigin(origins= {"*"})
 public class NivelController {
 
     @Autowired
     private IGenericService<Nivel> service;
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Nivel> create(@RequestBody Nivel Nivel) {
         return new ResponseEntity<>(service.create(Nivel), HttpStatus.OK);
     }
@@ -46,6 +46,7 @@ public class NivelController {
     }
 
     @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ResultSearchData<Nivel>> search(@RequestParam(name = "page", defaultValue = "0") int page,
                                                               @RequestParam(name = "size", defaultValue = "10") int size, @RequestParam(name = "sortBy") String sortBy
             , @RequestParam(name = "sortOrder") String sortOrder ) {
