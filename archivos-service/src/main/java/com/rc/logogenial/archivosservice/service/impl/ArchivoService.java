@@ -28,7 +28,7 @@ public class ArchivoService extends BaseService<Archivo> implements IArchivoServ
             archivoEntidad.setNombre(nombreArchivo);
             return repository.save(archivoEntidad);
         }
-        throw new IOException("No fue posible registrar el archivo");
+        throw new IOException("No fue posible registrar el archivo.");
     }
 
     public String copiarArchivo(MultipartFile archivo)  throws IOException{

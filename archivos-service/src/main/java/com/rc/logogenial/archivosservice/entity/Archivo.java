@@ -23,7 +23,7 @@ public class Archivo    {
     @Column(name = "id")
     private int id;
 
-    @Column(columnDefinition = "VARCHAR(150) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(160) NOT NULL")
     private String nombre;
 
     /** The activo. */
