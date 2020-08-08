@@ -36,12 +36,8 @@ public class Datagenia {
     @Column(columnDefinition = "VARCHAR(500) NOT NULL")
     private String frase;
 
-    @NotFound(action= NotFoundAction.IGNORE)
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Cascade({ org.hibernate.annotations.CascadeType.REFRESH })
-    @JoinColumn(name = "archivo_id", columnDefinition = "int4 NOT NULL")
-    @JsonBackReference
-    private Archivo archivoId;
+    @Column(name = "archivo_id", columnDefinition = "INT NOT NULL")
+    private int archivoId;
 
     @Column(name = "dificultad")
     private int dificultad;

@@ -19,7 +19,12 @@ public class ArchivoController {
     @Autowired
     private IArchivoService<Archivo, MultipartFile> service;
 
-    @PostMapping("/create")
+    @GetMapping(value = "/health")
+    public ResponseEntity<String> health() {
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @PostMapping
     public ResponseEntity<?> create(
             //@RequestBody Archivo data,
             @RequestParam("archivo") MultipartFile archivo)

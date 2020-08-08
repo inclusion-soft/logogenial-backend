@@ -23,7 +23,7 @@ public class DatageniaController {
     @Autowired
     private IGenericService<Datagenia> service;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Datagenia> create(@RequestBody Datagenia Datagenia) {
         return new ResponseEntity<>(service.create(Datagenia), HttpStatus.OK);
     }
