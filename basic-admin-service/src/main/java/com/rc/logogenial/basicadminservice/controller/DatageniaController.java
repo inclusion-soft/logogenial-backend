@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping({ "/datagenia-api" })
+@RequestMapping({ "v1/datagenia-api" })
 @CrossOrigin(origins= {"*"})
 public class DatageniaController {
 
