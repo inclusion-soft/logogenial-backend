@@ -27,7 +27,7 @@ public class ArchivoService extends BaseService<Archivo> implements IArchivoServ
     @Autowired
     private IArchivoRepository repository;
     private final Logger log = LoggerFactory.getLogger(ArchivoService.class);
-    private final static String DIRECTORIO_UPLOAD =  "basic-admin-service\\uploads" ;
+    private final static String DIRECTORIO_UPLOAD =  "uploads" ;
 
 
     @Override
