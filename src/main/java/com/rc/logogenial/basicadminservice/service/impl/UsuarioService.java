@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService extends  BaseService<Usuario> implements IUsuarioService<Usuario>,  UserDetailsService {
+public class UsuarioService extends  BaseService<Usuario> implements IGenericService<Usuario>,  UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;
@@ -49,7 +50,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
                 .peek(authority -> logger.info("Role: " + authority.getAuthority()))
                 .collect(Collectors.toList());
 
-        return new User(usuario.getUsername(), usuario.getPassword(),  usuario.getEnabled() > 0 ? true: false, true, true, true, authorities);
+        return new User(usuario.getUsername(), usuario.getPassword(),  usuario.getActivo() == true ? true: false, true, true, true, authorities);
     }
 
     @Transactional(readOnly=true)
@@ -103,15 +104,11 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
         throw new ResourceNotFoundException("User", "id", Integer.toString(Usuario.getId()));
     }
 
-    public ResultSearchData<Usuario> findAllSearch(int page, int size) {
-        Pageable paging = PageRequest.of(page, size
-                //        , Sort.by(sortBy)
-        );
-
+    @Override
+    public ResultSearchData<Usuario> findAllSearch(int page, int size, String sortBy, String sortOrder) {
+        Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
         Page<Usuario> pagedResult = repository.findAll(paging);
         return (ResultSearchData<Usuario>) this.getResultSearch(pagedResult);
-
     }
-
 
 }

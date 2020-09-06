@@ -7,12 +7,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario", uniqueConstraints = @UniqueConstraint(name = "usuario_uk", columnNames = "username"))
 public class Usuario implements Serializable {
 
     @Id
@@ -22,22 +23,32 @@ public class Usuario implements Serializable {
     @Column(unique = true, length = 20)
     private String username;
 
-    @Column(length = 60)
+    @Column(length = 255)
     private String password;
 
-    private Integer enabled;
+    private Integer estado;
 
+    @Column(length = 50)
     private String nombre;
+
+    @Column(length = 50)
     private String apellido;
 
     @Column(unique = true)
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
+    @JoinTable(name="usuario_rol", joinColumns= @JoinColumn(name="usuario_id"),
             inverseJoinColumns=@JoinColumn(name="role_id"),
             uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
     private List<Role> roles;
+
+    @Column(name = "activo", columnDefinition = "BOOLEAN NOT NULL DEFAULT TRUE")
+    @Builder.Default
+    public Boolean activo = true;
+
+    @Column(name = "eliminado")
+    public Date eliminado;
 
     /**
      *
