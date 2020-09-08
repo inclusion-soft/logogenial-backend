@@ -34,6 +34,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
 
     private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
+
     @Override
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
