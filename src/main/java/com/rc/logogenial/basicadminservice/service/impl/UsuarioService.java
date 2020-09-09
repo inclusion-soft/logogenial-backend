@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,8 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
 
     private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly=true)
@@ -60,6 +63,10 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
     }
 
     public Usuario create(Usuario Usuario) {
+        String clave = passwordEncoder.encode(Usuario.getPassword());
+        Usuario.setPassword(clave);
+        Usuario.setIntentosExitosos(0L);
+        Usuario.setIntentosFallidos(0L);
         return repository.save(Usuario);
     }
 

@@ -34,6 +34,14 @@ public class Usuario implements Serializable {
     @Column(length = 50)
     private String apellido;
 
+    /** The Intentos fallidos. */
+    @Column(name = "INTENTOS_FALLIDOS")
+    private Long intentosFallidos;
+
+    /** The Intentos exitosos. */
+    @Column(name = "INTENTOS_EXITOSOS")
+    private Long intentosExitosos;
+
     @Column(unique = true)
     private String email;
 
