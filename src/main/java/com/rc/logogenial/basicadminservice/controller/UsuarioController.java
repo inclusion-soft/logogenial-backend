@@ -1,6 +1,7 @@
 package com.rc.logogenial.basicadminservice.controller;
 
 import com.rc.logogenial.basicadminservice.entity.Usuario;
+import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 import com.rc.logogenial.basicadminservice.service.IGenericService;
@@ -25,7 +26,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) throws ResourceFoundException {
         return new ResponseEntity<>(usuarioService.create(usuario), HttpStatus.OK);
     }
 

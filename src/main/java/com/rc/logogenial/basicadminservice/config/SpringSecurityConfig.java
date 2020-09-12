@@ -5,6 +5,7 @@ import com.rc.logogenial.basicadminservice.service.impl.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import springfox.documentation.swagger.web.ApiKeyVehicle;
+import springfox.documentation.swagger.web.SecurityConfiguration;
 
 
 // TODO: Auto-generated Javadoc
@@ -62,6 +64,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+//    @Bean
+//    SecurityConfiguration security() {
+//        return new SecurityConfiguration(null, null, null, // realm Needed for authenticate button to work
+//                null, // appName Needed for authenticate button to work
+//                "BEARER ", // apiKeyValue
+//                ApiKeyVehicle.HEADER, "AUTHORIZATION_HEADER", // apiKeyName
+//                null);
+//    }
+
     /**
      * Password encoder.
      *
@@ -81,7 +92,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/webjars/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/v1/usuario-api/**").permitAll()
+                .antMatchers("/v1/archivo-api/getById/**").permitAll()
+                .antMatchers("/v1/usuario-api/create").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/v2/api-docs/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
@@ -92,7 +104,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .csrf().disable();
+                .csrf().disable().authorizeRequests()
+                //.antMatchers(HttpMethod.OPTIONS, "**").permitAll()
+        ;
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

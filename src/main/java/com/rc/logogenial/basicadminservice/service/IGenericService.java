@@ -1,10 +1,11 @@
 package com.rc.logogenial.basicadminservice.service;
 
+import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 
 public interface IGenericService<T> {
-    T create(T T);
+    T create(T T) throws ResourceFoundException;
 
     void delete(T T) throws ResourceNotFoundException;
 

@@ -1,6 +1,8 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
+import com.rc.logogenial.basicadminservice.entity.Role;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
+import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,12 +65,36 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         return repository.findByUsername(username);
     }
 
-    public Usuario create(Usuario Usuario) {
-        String clave = passwordEncoder.encode(Usuario.getPassword());
-        Usuario.setPassword(clave);
-        Usuario.setIntentosExitosos(0L);
-        Usuario.setIntentosFallidos(0L);
-        return repository.save(Usuario);
+    public Usuario create(Usuario usuario) throws ResourceFoundException {
+        Optional<Usuario> usuarioConsulta = repository.findByUsernameOrEmail(usuario.getUsername(), usuario.getEmail());
+        if(usuarioConsulta.isPresent()) {
+            throw new ResourceFoundException("Usuario "+ usuario.getUsername() + " o email: " + usuario.getEmail());
+        }
+        String clave = passwordEncoder.encode(usuario.getPassword());
+        usuario.setPassword(clave);
+        usuario.setIntentosExitosos(0L);
+        usuario.setIntentosFallidos(0L);
+
+        // Por defecto el usuario esta inactivo
+        usuario.setEstado(0);
+
+        // Configura el rol que solicitó
+        switch(usuario.getRoles().get(0).getNombre()){
+            case "Docente / Tutor":
+                usuario.getRoles().get(0).setId(2L);
+                //usuario.getRoles().get(0).setNombre("TUTOR");
+                break;
+            case "Administrador":
+                usuario.getRoles().get(0).setId(1L);
+                //usuario.getRoles().get(0).setNombre("ADMINISTRADOR");
+                break;
+            case "Estudiante":
+                usuario.getRoles().get(0).setId(3L);
+                //usuario.getRoles().get(0).setNombre("ESTUDIANTE");
+                usuario.setEstado(1);
+                break;
+        }
+        return repository.save(usuario);
     }
 
     public void delete(Usuario Usuario) throws ResourceNotFoundException {

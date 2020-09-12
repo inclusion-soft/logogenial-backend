@@ -19,6 +19,7 @@ public class NivelService extends BaseService<Nivel> implements IGenericService<
 
     @Override
     public Nivel create(Nivel nivel) {
+
         return repository.save(nivel);
     }
 

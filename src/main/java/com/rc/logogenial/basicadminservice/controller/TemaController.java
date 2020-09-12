@@ -2,6 +2,7 @@ package com.rc.logogenial.basicadminservice.controller;
 
 import com.rc.logogenial.basicadminservice.entity.Tema;
 import com.rc.logogenial.basicadminservice.entity.Tema;
+import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 import com.rc.logogenial.basicadminservice.service.IGenericService;
@@ -27,7 +28,7 @@ public class TemaController  {
     }
 
     @PostMapping
-    public ResponseEntity<Tema> create(@RequestBody Tema Tema) {
+    public ResponseEntity<Tema> create(@RequestBody Tema Tema) throws ResourceFoundException {
         return new ResponseEntity<>(service.create(Tema), HttpStatus.OK);
     }
 
