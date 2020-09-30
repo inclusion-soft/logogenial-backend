@@ -68,12 +68,12 @@ public class NivelesService extends BaseService<Niveles> implements INivelesServ
     }
 
     @Override
-    public Niveles update(Niveles grupo) throws ResourceNotFoundException {
-        if (repository.findById(grupo.getId()).isPresent())
+    public Niveles update(Niveles nivel) throws ResourceNotFoundException {
+        if (repository.findById(nivel.getId()).isPresent())
         {
-            return repository.save(grupo);
+            return repository.save(nivel);
         }
-        throw new ResourceNotFoundException("Niveles", "id", Integer.toString(grupo.getId()));
+        throw new ResourceNotFoundException("Niveles", "id", Integer.toString(nivel.getId()));
     }
 
 

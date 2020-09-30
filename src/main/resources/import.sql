@@ -13,16 +13,18 @@ insert into usuario_rol (usuario_id, role_id)  values (2,1);
 insert into usuario_rol (usuario_id, role_id)  values (2,2);
 insert into usuario_rol (usuario_id, role_id)  values (2,3);
 
-INSERT INTO nivel (id, activo, dificultad, eliminado, nombre) VALUES (1, true, 1, null, 'INICIAL');
-INSERT INTO nivel (id, activo, dificultad, eliminado, nombre) VALUES (2, true, 5, null, 'INTERMEDIO');
-INSERT INTO nivel (id, activo, dificultad, eliminado, nombre) VALUES (3, true, 8, null, 'AVANZADO');
+INSERT INTO nivel (id, activo, dificultad, nombre, eliminado) VALUES (1, true, 1, 'INICIAL', to_date('01-01-2020','dd-mm-yyyy'));
+INSERT INTO nivel (id, activo, dificultad, nombre, eliminado) VALUES (2, true, 5, 'INTERMEDIO', to_date('01-01-2020','dd-mm-yyyy'));
+INSERT INTO nivel (id, activo, dificultad, nombre, eliminado) VALUES (3, true, 8, 'AVANZADO', to_date('01-01-2020','dd-mm-yyyy'));
 
-INSERT INTO grupo (id, activo, anio, eliminado, nombre, usuario_id) VALUES (1, true, 2020, null, 'INVITADO', 2);
-INSERT INTO grupo (id, activo, anio, eliminado, nombre, usuario_id) VALUES (2, true, 2020, null, 'COLEGIO PRINCIPAL - GRUPO 1', 2);
-INSERT INTO grupo (id, activo, anio, eliminado, nombre, usuario_id) VALUES (3, true, 2020, null, 'PERSONAL - INTERMEDIOS', 2);
+INSERT INTO grupo (id, activo, anio, nombre, usuario_id, eliminado) VALUES (1, true, 2020, 'INVITADO', 2, to_date('01-01-2020','dd-mm-yyyy'));
+INSERT INTO grupo (id, activo, anio, nombre, usuario_id, eliminado) VALUES (2, true, 2020, 'COLEGIO PRINCIPAL - GRUPO 1', 2, to_date('01-01-2020','dd-mm-yyyy'));
+INSERT INTO grupo (id, activo, anio, nombre, usuario_id, eliminado) VALUES (3, true, 2020, 'PERSONAL - INTERMEDIOS', 2, to_date('01-01-2020','dd-mm-yyyy'));
 
-INSERT INTO archivo (id, activo, eliminado, nombre) VALUES (1, true, null, 'archivo2020-09-27T20_03_30_587.jpg');
-INSERT INTO archivo (id, activo, eliminado, nombre) VALUES (2, true, null, 'archivo2020-09-27T20_04_00_244.jpg');
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (1, true, 'archivo2020-09-27T20_03_30_587.jpg', to_date('01-01-2020','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (2, true, 'archivo2020-09-27T20_04_00_244.jpg', to_date('01-01-2020','dd-mm-yyyy'));
 
-INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (1, true, 1, true, 1, null, 'CASA', 'CASA', 1);
-INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (2, true, 2, true, 9, null, 'CIELO ES AZUL Y NUBES SON BLANCAS', 'EL CIELO ES AZUL Y LAS NUBES SON BLANCAS', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (1, true, 1, true, 1, 'CASA', 'CASA', 1, to_date('01-01-2020','dd-mm-yyyy'));
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (2, true, 2, true, 9, 'CIELO ES AZUL Y NUBES SON BLANCAS', 'EL CIELO ES AZUL Y LAS NUBES SON BLANCAS', 1, to_date('01-01-2020','dd-mm-yyyy'));
+
+SELECT setval('grupo_id_seq', (SELECT MAX(id) FROM grupo)+1);

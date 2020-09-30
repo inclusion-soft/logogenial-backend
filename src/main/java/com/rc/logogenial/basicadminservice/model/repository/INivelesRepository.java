@@ -9,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface INivelesRepository extends CrudRepository<Niveles,Integer> {
     Page<Niveles> findAll(Pageable paging);
     Page<Niveles> findAllByGrupo_Id(Pageable paging, int usuarioId);
-    Niveles findByNombre(String nombre);
+    Niveles findByNivel_Nombre(String nombre);
 }
