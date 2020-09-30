@@ -28,3 +28,6 @@ INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, no
 INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (2, true, 2, true, 9, 'CIELO ES AZUL Y NUBES SON BLANCAS', 'EL CIELO ES AZUL Y LAS NUBES SON BLANCAS', 1, to_date('01-01-2020','dd-mm-yyyy'));
 
 SELECT setval('grupo_id_seq', (SELECT MAX(id) FROM grupo)+1);
+SELECT setval('datagenia_id_seq', (SELECT MAX(id) FROM datagenia)+1);
+SELECT setval('archivo_id_seq', (SELECT MAX(id) FROM archivo)+1);
+SELECT setval('nivel_id_seq', (SELECT MAX(id) FROM nivel)+1);
