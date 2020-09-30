@@ -1,6 +1,7 @@
 package com.rc.logogenial.basicadminservice.controller;
 
 import com.rc.logogenial.basicadminservice.entity.Datagenia;
+import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 import com.rc.logogenial.basicadminservice.service.IGenericService;
@@ -24,7 +25,7 @@ public class DatageniaController {
     private IGenericService<Datagenia> service;
 
     @PostMapping
-    public ResponseEntity<Datagenia> create(@RequestBody Datagenia Datagenia) {
+    public ResponseEntity<Datagenia> create(@RequestBody Datagenia Datagenia) throws ResourceFoundException {
         return new ResponseEntity<>(service.create(Datagenia), HttpStatus.OK);
     }
 
