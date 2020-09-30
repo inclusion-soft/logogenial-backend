@@ -1,6 +1,7 @@
 package com.rc.logogenial.basicadminservice.controller;
 
 import com.rc.logogenial.basicadminservice.entity.Nivel;
+import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 import com.rc.logogenial.basicadminservice.service.IGenericService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +22,8 @@ public class NivelController {
     private IGenericService<Nivel> service;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Nivel> create(@RequestBody Nivel Nivel) {
+    @PreAuthorize("hasPermission('hasAccess','ADMINISTRADOR','ESTUDIANTE')")
+    public ResponseEntity<Nivel> create(@RequestBody Nivel Nivel) throws ResourceFoundException {
         return new ResponseEntity<>(service.create(Nivel), HttpStatus.OK);
     }
 
@@ -41,6 +44,7 @@ public class NivelController {
     }
 
     @GetMapping("/findAll")
+    @PreAuthorize("hasPermission('hasAccess','ESTUDIANTE')")
     public ResponseEntity<Iterable<Nivel>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }

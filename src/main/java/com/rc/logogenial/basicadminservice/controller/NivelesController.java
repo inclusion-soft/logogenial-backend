@@ -1,12 +1,12 @@
 package com.rc.logogenial.basicadminservice.controller;
 
-import com.rc.logogenial.basicadminservice.entity.Tema;
-import com.rc.logogenial.basicadminservice.entity.Tema;
+import com.rc.logogenial.basicadminservice.entity.Niveles;
 import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
+import com.rc.logogenial.basicadminservice.model.shared.PageablePrimitive;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 import com.rc.logogenial.basicadminservice.service.IGenericService;
-import com.rc.logogenial.basicadminservice.service.IGenericSimpleService;
+import com.rc.logogenial.basicadminservice.service.INivelesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,12 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping({ "/v1/tema-api" })
+@RequestMapping({ "/v1/niveles-api" })
 @CrossOrigin(origins= {"*"})
-public class TemaController  {
+public class NivelesController {
 
     @Autowired
-    private IGenericService<Tema> service;
+    private INivelesService service;
 
     @GetMapping(value = "/health")
     public ResponseEntity<String> health() {
@@ -28,18 +28,18 @@ public class TemaController  {
     }
 
     @PostMapping
-    public ResponseEntity<Tema> create(@RequestBody Tema Tema) throws ResourceFoundException {
-        return new ResponseEntity<>(service.create(Tema), HttpStatus.OK);
+    public ResponseEntity<Niveles> create(@RequestBody Niveles Niveles) throws ResourceFoundException {
+        return new ResponseEntity<>(service.create(Niveles), HttpStatus.OK);
     }
 
     @GetMapping("/findById")
-    public ResponseEntity<Tema> findOne(@RequestParam int id) throws ResourceNotFoundException {
+    public ResponseEntity<Niveles> findOne(@RequestParam int id) throws ResourceNotFoundException {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("")
-    public ResponseEntity<Tema> update(@RequestBody Tema Tema) throws ResourceNotFoundException {
-        return new ResponseEntity<>(service.update(Tema), HttpStatus.OK);
+    public ResponseEntity<Niveles> update(@RequestBody Niveles Niveles) throws ResourceNotFoundException {
+        return new ResponseEntity<>(service.update(Niveles), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -49,16 +49,17 @@ public class TemaController  {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<Iterable<Tema>> findAll() {
+    public ResponseEntity<Iterable<Niveles>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ResultSearchData<Tema>> search(@RequestParam(name = "page", defaultValue = "0") int page,
+    public ResponseEntity<ResultSearchData<Niveles>> search(@RequestParam(name = "page", defaultValue = "0") int page,
                                                           @RequestParam(name = "size", defaultValue = "10") int size, @RequestParam(name = "sortBy") String sortBy
-            , @RequestParam(name = "sortOrder") String sortOrder ) {
-        ResultSearchData<Tema> datos = service.findAllSearch(page, size,sortBy, sortOrder);
-        return new ResponseEntity<ResultSearchData<Tema>>(datos, new HttpHeaders(), HttpStatus.OK);
+            , @RequestParam(name = "sortOrder") String sortOrder, @RequestParam(name = "grupoId") int grupoId) {
+        PageablePrimitive pag = new PageablePrimitive(page, size,sortBy, sortOrder);
+        ResultSearchData<Niveles> datos = service.Search(pag, grupoId);
+        return new ResponseEntity<ResultSearchData<Niveles>>(datos, new HttpHeaders(), HttpStatus.OK);
     }
 
 }

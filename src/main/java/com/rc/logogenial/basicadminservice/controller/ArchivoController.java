@@ -43,10 +43,10 @@ public class ArchivoController  {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/uploads/img/{idFoto}")
-    public ResponseEntity<Resource> verFoto(@PathVariable int idFoto) throws IOException {
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<Resource> verFoto(@PathVariable("id") int id) throws IOException {
         Resource recurso = null;
-        recurso = service.cargar(idFoto);
+        recurso = service.cargar(id);
 
         // para que se pueda descargar
         HttpHeaders cabecera = new HttpHeaders();

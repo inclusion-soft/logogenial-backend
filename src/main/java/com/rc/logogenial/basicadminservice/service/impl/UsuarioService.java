@@ -1,6 +1,8 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
+import com.rc.logogenial.basicadminservice.entity.Role;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
+import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
@@ -13,25 +15,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService extends  BaseService<Usuario> implements IUsuarioService<Usuario>,  UserDetailsService {
+public class UsuarioService extends  BaseService<Usuario> implements IGenericService<Usuario>,  UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;
 
     private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public Usuario getUserLogged() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return repository.findByUsername(userDetails.getUsername());
+    }
 
     @Override
     @Transactional(readOnly=true)
@@ -49,7 +65,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
                 .peek(authority -> logger.info("Role: " + authority.getAuthority()))
                 .collect(Collectors.toList());
 
-        return new User(usuario.getUsername(), usuario.getPassword(),  usuario.getEnabled() > 0 ? true: false, true, true, true, authorities);
+        return new User(usuario.getUsername(), usuario.getPassword(),  usuario.getActivo() == true ? true: false, true, true, true, authorities);
     }
 
     @Transactional(readOnly=true)
@@ -57,8 +73,36 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
         return repository.findByUsername(username);
     }
 
-    public Usuario create(Usuario Usuario) {
-        return repository.save(Usuario);
+    public Usuario create(Usuario usuario) throws ResourceFoundException {
+        Optional<Usuario> usuarioConsulta = repository.findByUsernameOrEmail(usuario.getUsername(), usuario.getEmail());
+        if(usuarioConsulta.isPresent()) {
+            throw new ResourceFoundException("Usuario "+ usuario.getUsername() + " o email: " + usuario.getEmail());
+        }
+        String clave = passwordEncoder.encode(usuario.getPassword());
+        usuario.setPassword(clave);
+        usuario.setIntentosExitosos(0L);
+        usuario.setIntentosFallidos(0L);
+
+        // Por defecto el usuario esta inactivo
+        usuario.setEstado(0);
+
+        // Configura el rol que solicitó
+        switch(usuario.getRoles().get(0).getNombre()){
+            case "Docente / Tutor":
+                usuario.getRoles().get(0).setId(2L);
+                //usuario.getRoles().get(0).setNombre("TUTOR");
+                break;
+            case "Administrador":
+                usuario.getRoles().get(0).setId(1L);
+                //usuario.getRoles().get(0).setNombre("ADMINISTRADOR");
+                break;
+            case "Estudiante":
+                usuario.getRoles().get(0).setId(3L);
+                //usuario.getRoles().get(0).setNombre("ESTUDIANTE");
+                usuario.setEstado(1);
+                break;
+        }
+        return repository.save(usuario);
     }
 
     public void delete(Usuario Usuario) throws ResourceNotFoundException {
@@ -103,15 +147,11 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
         throw new ResourceNotFoundException("User", "id", Integer.toString(Usuario.getId()));
     }
 
-    public ResultSearchData<Usuario> findAllSearch(int page, int size) {
-        Pageable paging = PageRequest.of(page, size
-                //        , Sort.by(sortBy)
-        );
-
+    @Override
+    public ResultSearchData<Usuario> findAllSearch(int page, int size, String sortBy, String sortOrder) {
+        Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
         Page<Usuario> pagedResult = repository.findAll(paging);
         return (ResultSearchData<Usuario>) this.getResultSearch(pagedResult);
-
     }
-
 
 }
