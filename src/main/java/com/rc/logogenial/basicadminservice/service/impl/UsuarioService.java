@@ -38,6 +38,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
     @Autowired
     private UsuarioRepository repository;
 
+
     private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
     @Autowired
@@ -86,19 +87,20 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         // Por defecto el usuario esta inactivo
         usuario.setEstado(0);
 
+        Role rolEstudiante = new Role();
+        rolEstudiante.setId(3L);
         // Configura el rol que solicitó
         switch(usuario.getRoles().get(0).getNombre()){
             case "Docente / Tutor":
                 usuario.getRoles().get(0).setId(2L);
-                //usuario.getRoles().get(0).setNombre("TUTOR");
+                usuario.getRoles().add( rolEstudiante);
                 break;
             case "Administrador":
                 usuario.getRoles().get(0).setId(1L);
-                //usuario.getRoles().get(0).setNombre("ADMINISTRADOR");
+                usuario.getRoles().add( rolEstudiante);
                 break;
             case "Estudiante":
                 usuario.getRoles().get(0).setId(3L);
-                //usuario.getRoles().get(0).setNombre("ESTUDIANTE");
                 usuario.setEstado(1);
                 break;
         }

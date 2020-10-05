@@ -25,16 +25,16 @@ public class GrupoNivelTemaService extends BaseService<GrupoNivelTema> implement
     private UsuarioService usuarioService;
 
     @Override
-    public GrupoNivelTema create(GrupoNivelTema grupo) {
-        return repository.save(grupo);
+    public GrupoNivelTema create(GrupoNivelTema grupoNivelTema) {
+        return repository.save(grupoNivelTema);
     }
 
     @Override
-    public void delete(GrupoNivelTema tema) throws ResourceNotFoundException {
-        if (repository.findById(tema.getId()).isPresent()) {
-            repository.delete(tema);
+    public void delete(GrupoNivelTema grupoNivelTema) throws ResourceNotFoundException {
+        if (repository.findById(grupoNivelTema.getId()).isPresent()) {
+            repository.delete(grupoNivelTema);
         }
-        throw new ResourceNotFoundException("nema", "id", Integer.toString(tema.getId()));
+        throw new ResourceNotFoundException("nema", "id", Integer.toString(grupoNivelTema.getId()));
     }
 
     @Override
@@ -67,22 +67,22 @@ public class GrupoNivelTemaService extends BaseService<GrupoNivelTema> implement
     }
 
     @Override
-    public GrupoNivelTema update(GrupoNivelTema nivel) throws ResourceNotFoundException {
-        if (repository.findById(nivel.getId()).isPresent())
+    public GrupoNivelTema update(GrupoNivelTema grupoNivelTema) throws ResourceNotFoundException {
+        if (repository.findById(grupoNivelTema.getId()).isPresent())
         {
-            return repository.save(nivel);
+            return repository.save(grupoNivelTema);
         }
-        throw new ResourceNotFoundException("Niveles", "id", Integer.toString(nivel.getId()));
+        throw new ResourceNotFoundException("Niveles", "id", Integer.toString(grupoNivelTema.getId()));
     }
 
 
     @Override
-    public ResultSearchData<GrupoNivelTema> Search(PageablePrimitive pag, int nivelId) {
+    public ResultSearchData<GrupoNivelTema> Search(PageablePrimitive pag, int grupoNivelId) {
 
         Pageable paging = PageRequest.of(pag.getPage(), pag.getSize(),
                 pag.getSortBy().equals("asc") ? Sort.by(pag.getSortOrder()).ascending() : Sort.by(pag.getSortBy()).descending());
         Usuario usuario = usuarioService.getUserLogged();
-        Page<GrupoNivelTema> pagedResult = repository.findAllByGrupoNivel_Id(paging, nivelId);
+        Page<GrupoNivelTema> pagedResult = repository.findAllByGrupoNivel_Id(paging, grupoNivelId);
         return (ResultSearchData<GrupoNivelTema>) this.getResultSearch(pagedResult);
     }
 }
