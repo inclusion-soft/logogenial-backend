@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 
 @Entity
-@Table(name="leccion", uniqueConstraints =  @UniqueConstraint(name = "leccion_uk", columnNames = {"eliminado","grupo_nivel_tema_id","nombre"}))
+@Table(name="leccion", uniqueConstraints =  @UniqueConstraint(name = "leccion_uk", columnNames = {"eliminado","grupo_nivel_tema_id","leyenda"}))
 @SQLDelete(sql = "UPDATE leccion SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "eliminado = to_date('09-09-1999','dd-mm-yyyy')")
 public class Leccion {
@@ -31,7 +31,10 @@ public class Leccion {
     private GrupoNivelTema grupoNivelTema;
 
     @Column(columnDefinition = "VARCHAR(30) NOT NULL")
-    private String nombre;
+    private String leyenda;
+
+    @Column(name = "enumeracion", columnDefinition = "INT NOT NULL")
+    private int enumeracion;
 
 
     /** The activo. */

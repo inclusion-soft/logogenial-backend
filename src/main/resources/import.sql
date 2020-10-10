@@ -52,3 +52,5 @@ SELECT setval('archivo_id_seq', (SELECT MAX(id) FROM archivo)+1);
 SELECT setval('nivel_id_seq', (SELECT MAX(id) FROM nivel)+1);
 SELECT setval('tema_id_seq', (SELECT MAX(id) FROM tema)+1);
 SELECT setval('grupo_nivel_id_seq', (SELECT MAX(id) FROM GRUPO_NIVEL)+1);
+SELECT setval('grupo_nivel_tema_id_seq', (SELECT MAX(id) FROM GRUPO_NIVEL_TEMA)+1);
+SELECT setval('leccion_id_seq', (SELECT MAX(id) FROM LECCION)+1);
