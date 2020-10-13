@@ -54,3 +54,4 @@ SELECT setval('tema_id_seq', (SELECT MAX(id) FROM tema)+1);
 SELECT setval('grupo_nivel_id_seq', (SELECT MAX(id) FROM GRUPO_NIVEL)+1);
 SELECT setval('grupo_nivel_tema_id_seq', (SELECT MAX(id) FROM GRUPO_NIVEL_TEMA)+1);
 SELECT setval('leccion_id_seq', (SELECT MAX(id) FROM LECCION)+1);
+SELECT setval('pregunta_id_seq', (SELECT MAX(id) FROM PREGUNTA)+1);
