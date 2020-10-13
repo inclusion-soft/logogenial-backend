@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PreguntaService extends BaseService<Pregunta> implements IPreguntaService {
 
@@ -64,11 +66,11 @@ public class PreguntaService extends BaseService<Pregunta> implements IPreguntaS
 
     @Override
     public Pregunta update(Pregunta pregunta) throws ResourceNotFoundException {
-        Pregunta preguntaExistente = new Pregunta();
-        if (repository.findById(pregunta.getId()).isPresent())
+        Optional<Pregunta> preguntaExistente = repository.findById(pregunta.getId());
+        if (preguntaExistente.isPresent())
         {
-            pregunta.setUsuarioautor(preguntaExistente.getUsuarioautor());
-            pregunta.setAprobacion(preguntaExistente.getAprobacion());
+            pregunta.setUsuarioautor(preguntaExistente.get().getUsuarioautor());
+            pregunta.setAprobacion(preguntaExistente.get().getAprobacion());
             return repository.save(pregunta);
         }
         throw new ResourceNotFoundException("Niveles", "id", Integer.toString(pregunta.getId()));

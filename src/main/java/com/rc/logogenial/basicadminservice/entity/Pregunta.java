@@ -42,9 +42,6 @@ public class Pregunta {
     @Builder.Default
     public Boolean aprobacion = true;
 
-    @Column(name = "uso_compartido", columnDefinition = "BOOLEAN NOT NULL DEFAULT TRUE")
-    @Builder.Default
-    public Boolean usocompartido = true;
 
     @NotFound(action= NotFoundAction.IGNORE)
     @ManyToOne(fetch = FetchType.EAGER)

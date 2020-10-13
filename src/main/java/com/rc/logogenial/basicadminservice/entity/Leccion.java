@@ -33,6 +33,7 @@ public class Leccion {
     @Column(columnDefinition = "VARCHAR(30) NOT NULL")
     private String leyenda;
 
+    @OrderBy
     @Column(name = "enumeracion", columnDefinition = "INT NOT NULL")
     private int enumeracion;
 
