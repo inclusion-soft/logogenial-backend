@@ -32,9 +32,33 @@ INSERT INTO grupo (id, activo, anio, eliminado, nombre, usuario_id) VALUES (5, t
 
 INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (1, true, 'archivo2020-09-27T20_03_30_587.jpg', to_date('09-09-1999','dd-mm-yyyy'));
 INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (2, true, 'archivo2020-09-27T20_04_00_244.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (4, true, 'archivo2020-10-13T22_26_38_267.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (5, true, 'archivo2020-10-13T22_26_54_970.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (6, true, 'archivo2020-10-13T22_27_22_215.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (7, true, 'archivo2020-10-13T22_28_36_333.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (8, true, 'archivo2020-10-13T22_29_12_746.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (9, true, 'archivo2020-10-13T22_29_54_871.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (10, true, 'archivo2020-10-13T22_30_19_451.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (11, true, 'archivo2020-10-13T22_30_54_846.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (12, true, 'archivo2020-10-13T22_31_52_279.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (13, true, 'archivo2020-10-13T22_32_31_139.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (14, true, 'archivo2020-10-13T22_33_21_206.jpg', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (15, true, 'archivo2020-10-13T22_34_17_470.jpg', to_date('09-09-1999','dd-mm-yyyy'));
 
 INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (1, true, 1, true, 1, 'CASA', 'CASA', 1, to_date('09-09-1999','dd-mm-yyyy'));
-INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (2, true, 2, true, 9, 'CIELO ES AZUL Y NUBES SON BLANCAS', 'EL CIELO ES AZUL Y LAS NUBES SON BLANCAS', 1, to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (2, true, 2, true, 9, 'EL CIELO ES AZUL Y LAS NUBES SON BLANCAS', 'EL CIELO ES AZUL Y LAS NUBES SON BLANCAS', 1, to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (4, true, 4, true, 5, to_date('09-09-1999','dd-mm-yyyy'), 'Paloma de la paz', 'paloma de la paz', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (5, true, 5, true, 2, to_date('09-09-1999','dd-mm-yyyy'), 'Platanos', 'Platanos', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (6, true, 6, true, 2, to_date('09-09-1999','dd-mm-yyyy'), 'Mono', 'Mono', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (7, true, 7, true, 5, to_date('09-09-1999','dd-mm-yyyy'), 'mi papa', 'mi papa', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (8, true, 8, true, 6, to_date('09-09-1999','dd-mm-yyyy'), 'pera', 'pera amarilla y hoja verde', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (9, true, 9, true, 3, to_date('09-09-1999','dd-mm-yyyy'), 'pulpo', 'pulpo', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (10, true, 10, true, 4, to_date('09-09-1999','dd-mm-yyyy'), 'seis paletas', 'seis paletas', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (11, true, 11, true, 7, to_date('09-09-1999','dd-mm-yyyy'), 'seis pelotas de colores', 'seis pelotas de colores', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (12, true, 12, true, 3, to_date('09-09-1999','dd-mm-yyyy'), 'mimo', 'mimo', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (13, true, 13, true, 2, to_date('09-09-1999','dd-mm-yyyy'), 'abeja', 'abeja', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (14, true, 14, true, 5, to_date('09-09-1999','dd-mm-yyyy'), 'amo a mi mama', 'mama y yo', 1);
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (15, true, 15, true, 9, to_date('09-09-1999','dd-mm-yyyy'), 'con mi mama y mi hermana en la playa', 'vacaciones-familia', 1);
 
 INSERT INTO grupo_nivel (id, activo, eliminado, grupo_id, nivel_id) VALUES (1, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 1);
 INSERT INTO grupo_nivel (id, activo, eliminado, grupo_id, nivel_id) VALUES (2, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 2);
@@ -55,3 +79,4 @@ SELECT setval('grupo_nivel_id_seq', (SELECT MAX(id) FROM GRUPO_NIVEL)+1);
 SELECT setval('grupo_nivel_tema_id_seq', (SELECT MAX(id) FROM GRUPO_NIVEL_TEMA)+1);
 SELECT setval('leccion_id_seq', (SELECT MAX(id) FROM LECCION)+1);
 SELECT setval('pregunta_id_seq', (SELECT MAX(id) FROM PREGUNTA)+1);
+SELECT setval('opcion_respuesta_id_seq', (SELECT MAX(id) FROM opcion_respuesta)+1);
