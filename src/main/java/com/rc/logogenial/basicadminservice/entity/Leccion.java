@@ -30,7 +30,7 @@ public class Leccion {
     @JoinColumn(name = "grupo_nivel_tema_id", columnDefinition = "int4 NOT NULL")
     private GrupoNivelTema grupoNivelTema;
 
-    @Column(columnDefinition = "VARCHAR(30) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(100) NOT NULL")
     private String leyenda;
 
     @OrderBy
