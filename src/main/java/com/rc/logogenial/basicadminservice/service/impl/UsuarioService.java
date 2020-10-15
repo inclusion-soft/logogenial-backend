@@ -89,6 +89,13 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
 
         Role rolEstudiante = new Role();
         rolEstudiante.setId(3L);
+        rolEstudiante.setNombre("Estudiante");
+
+        // usuarios de la app Mobile no traen roles por ende son estudiantes
+        if(usuario.getRoles().size() ==0) {
+            usuario.getRoles().add( rolEstudiante);
+        }
+
         // Configura el rol que solicitó
         switch(usuario.getRoles().get(0).getNombre()){
             case "Docente / Tutor":

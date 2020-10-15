@@ -1,6 +1,7 @@
-INSERT INTO usuario (id,nombre,apellido, email, username, password, estado, intentos_exitosos, intentos_fallidos) VALUES (1,'Nelson', 'Camacho', 'nc@mail.co', 'nelson.camacho',  '$2a$10$5VYzA1qYNJVV7UqB/vOGAOH8fPQeurb.B6or.6iTMLCEdMjRrRb/q',1,0,0);
-INSERT INTO usuario (id,nombre,apellido, email, username, password, estado, intentos_exitosos, intentos_fallidos) VALUES (2,'carlos', 'romero', 'cr@mail.co', 'carlos.romero',  '$2a$10$HEBKG0QeXV0u3ftVanWP0.SF/QUs4//C2FAYeAZL0SONM0UEMXw6q',1,0,0);
-INSERT INTO usuario (id, activo, apellido, eliminado, email, estado, intentos_exitosos, intentos_fallidos, nombre, password, username) VALUES (4, true, 'admin', null, 'admin@mail.co', 0, 2, 0, 'admin', '$2a$10$pP9MI7Kg4FBGprc3BnuHFuKu6uUCY45ovz.TFgyhRp2CMsJEXV9xi', 'admin');
+INSERT INTO usuario (id,nombre,apellido, email, username, password, estado, intentos_exitosos, intentos_fallidos, avatar) VALUES (1,'Nelson', 'Camacho', 'nc@mail.co', 'nelson.camacho',  '$2a$10$5VYzA1qYNJVV7UqB/vOGAOH8fPQeurb.B6or.6iTMLCEdMjRrRb/q',1,0,0,'av-1.png');
+INSERT INTO usuario (id,nombre,apellido, email, username, password, estado, intentos_exitosos, intentos_fallidos, avatar) VALUES (2,'carlos', 'romero', 'cr@mail.co', 'carlos.romero',  '$2a$10$HEBKG0QeXV0u3ftVanWP0.SF/QUs4//C2FAYeAZL0SONM0UEMXw6q',1,0,0,'av-1.png');
+INSERT INTO usuario (id, activo, apellido, eliminado, email, estado, intentos_exitosos, intentos_fallidos, nombre, password, username, avatar) VALUES (4, true, 'admin', null, 'admin@mail.co', 0, 2, 0, 'admin', '$2a$10$pP9MI7Kg4FBGprc3BnuHFuKu6uUCY45ovz.TFgyhRp2CMsJEXV9xi', 'admin','av-1.png');
+INSERT INTO usuario (id, activo, apellido, avatar, eliminado, email, estado, intentos_exitosos, intentos_fallidos, nombre, password, username) VALUES (6, true, 'Romero', 'av-5.png', null, 'isabellaromero@gmail.com', 1, 1, 0, 'Isabella', '$2a$10$EN0ruIGWuRrriERXhxSj6O24.7OccW3jj5j1Ap7wvg/RsP5/F8Czi', 'isabellaromero@gmail.com');
 
 insert into roles (id, nombre) values (1, 'ADMINISTRADOR');
 insert into roles (id, nombre) values (2, 'TUTOR');
@@ -16,6 +17,7 @@ insert into usuario_rol (usuario_id, role_id)  values (2,3);
 insert into usuario_rol (usuario_id, role_id)  values (4,1);
 insert into usuario_rol (usuario_id, role_id)  values (4,2);
 insert into usuario_rol (usuario_id, role_id)  values (4,3);
+INSERT INTO usuario_rol (usuario_id, role_id) VALUES (6, 3);
 
 INSERT INTO nivel (id, activo, dificultad, nombre, eliminado) VALUES (1, true, 1, 'INICIAL', to_date('09-09-1999','dd-mm-yyyy'));
 INSERT INTO nivel (id, activo, dificultad, nombre, eliminado) VALUES (2, true, 5, 'INTERMEDIO', to_date('09-09-1999','dd-mm-yyyy'));
