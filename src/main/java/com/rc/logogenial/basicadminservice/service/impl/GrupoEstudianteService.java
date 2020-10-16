@@ -1,12 +1,12 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
-import com.rc.logogenial.basicadminservice.entity.Leccion;
+import com.rc.logogenial.basicadminservice.entity.GrupoEstudiante;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
-import com.rc.logogenial.basicadminservice.model.repository.ILeccionRepository;
+import com.rc.logogenial.basicadminservice.model.repository.IGrupoEstudianteRepository;
 import com.rc.logogenial.basicadminservice.model.shared.PageablePrimitive;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
-import com.rc.logogenial.basicadminservice.service.ILeccionService;
+import com.rc.logogenial.basicadminservice.service.IGrupoEstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,26 +14,28 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class LeccionService extends BaseService<Leccion> implements ILeccionService {
+public class GrupoEstudianteService extends BaseService<GrupoEstudiante> implements IGrupoEstudianteService {
 
     @Autowired
-    private ILeccionRepository repository;
+    private IGrupoEstudianteRepository repository;
 
     @Autowired
     private UsuarioService usuarioService;
 
     @Override
-    public Leccion create(Leccion Leccion) {
-        return repository.save(Leccion);
+    public GrupoEstudiante create(GrupoEstudiante grupo) {
+        return repository.save(grupo);
     }
 
-    @Override
-    public void delete(Leccion Leccion) throws ResourceNotFoundException {
-        if (repository.findById(Leccion.getId()).isPresent()) {
-            repository.delete(Leccion);
+
+    public void delete(GrupoEstudiante tema) throws ResourceNotFoundException {
+        if (repository.findById(tema.getId()).isPresent()) {
+            repository.delete(tema);
         }
-        throw new ResourceNotFoundException("nema", "id", Integer.toString(Leccion.getId()));
+        throw new ResourceNotFoundException("nema", "id", Integer.toString(tema.getId()));
     }
 
     @Override
@@ -49,12 +51,12 @@ public class LeccionService extends BaseService<Leccion> implements ILeccionServ
     }
 
     @Override
-    public Iterable<Leccion> findAll() {
+    public Iterable<GrupoEstudiante> findAll() {
         return  repository.findAll();
     }
 
     @Override
-    public Leccion findById(int id) throws ResourceNotFoundException {
+    public GrupoEstudiante findById(int id) throws ResourceNotFoundException {
         if (repository.findById(id).isPresent())
         {
             return repository.findById(id).get();
@@ -66,21 +68,17 @@ public class LeccionService extends BaseService<Leccion> implements ILeccionServ
     }
 
     @Override
-    public Leccion update(Leccion Leccion) throws ResourceNotFoundException {
-        if (repository.findById(Leccion.getId()).isPresent())
+    public GrupoEstudiante update(GrupoEstudiante nivel) throws ResourceNotFoundException {
+        if (repository.findById(nivel.getId()).isPresent())
         {
-            return repository.save(Leccion);
+            return repository.save(nivel);
         }
-        throw new ResourceNotFoundException("Niveles", "id", Integer.toString(Leccion.getId()));
+        throw new ResourceNotFoundException("Niveles", "id", Integer.toString(nivel.getId()));
     }
 
-    @Override
-    public Iterable<Leccion> findAllByGrupoNivelTemaId(int id) {
-        return  repository.findAllByGrupoNivelTema_Id(id);
-    }
 
     @Override
-    public Iterable<Leccion> findAllByEstudianteId(int id) {
-        return  repository.findAllByEstudianteId(id);
+    public List<GrupoEstudiante> findAllByEstudianteId(int estudianteId) {
+        return repository.findAllByEstudianteId(estudianteId);
     }
 }

@@ -1,11 +1,12 @@
 package com.rc.logogenial.basicadminservice.controller;
 
-import com.rc.logogenial.basicadminservice.entity.Leccion;
+import com.rc.logogenial.basicadminservice.entity.GrupoEstudiante;
+import com.rc.logogenial.basicadminservice.entity.Pregunta;
 import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.model.shared.PageablePrimitive;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
-import com.rc.logogenial.basicadminservice.service.ILeccionService;
+import com.rc.logogenial.basicadminservice.service.IGrupoEstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,12 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping({ "/v1/lecciones-api" })
+@RequestMapping({ "/v1/grupo-estudiante-api" })
 @CrossOrigin(origins= {"*"})
-public class LeccionController {
+public class GrupoEstudianteController {
 
     @Autowired
-    private ILeccionService service;
+    private IGrupoEstudianteService service;
 
     @GetMapping(value = "/health")
     public ResponseEntity<String> health() {
@@ -27,18 +28,18 @@ public class LeccionController {
     }
 
     @PostMapping
-    public ResponseEntity<Leccion> create(@RequestBody Leccion grupoNivelTema) throws ResourceFoundException {
-        return new ResponseEntity<>(service.create(grupoNivelTema), HttpStatus.OK);
+    public ResponseEntity<GrupoEstudiante> create(@RequestBody GrupoEstudiante Niveles) throws ResourceFoundException {
+        return new ResponseEntity<>(service.create(Niveles), HttpStatus.OK);
     }
 
     @GetMapping("/findById")
-    public ResponseEntity<Leccion> findOne(@RequestParam int id) throws ResourceNotFoundException {
+    public ResponseEntity<GrupoEstudiante> findOne(@RequestParam int id) throws ResourceNotFoundException {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("")
-    public ResponseEntity<Leccion> update(@RequestBody Leccion grupoNivelTema) throws ResourceNotFoundException {
-        return new ResponseEntity<>(service.update(grupoNivelTema), HttpStatus.OK);
+    public ResponseEntity<GrupoEstudiante> update(@RequestBody GrupoEstudiante Niveles) throws ResourceNotFoundException {
+        return new ResponseEntity<>(service.update(Niveles), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -48,17 +49,12 @@ public class LeccionController {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<Iterable<Leccion>> findAll() {
+    public ResponseEntity<Iterable<GrupoEstudiante>> findAllByEstudianteId() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/findAllByGrupoNivelTemaId/{id}")
-    public ResponseEntity<Iterable<Leccion>> findAllByGrupoNivelTemaId(@PathVariable("id") int id) {
-        return new ResponseEntity<>(service.findAllByGrupoNivelTemaId(id), HttpStatus.OK);
-    }
-
     @GetMapping("/findAllByEstudianteId/{id}")
-    public ResponseEntity<Iterable<Leccion>> findAllByEstudianteId(@PathVariable("id") int id) {
+    public ResponseEntity<Iterable<GrupoEstudiante>> findAllByEstudianteId(@PathVariable("id") int id) {
         return new ResponseEntity<>(service.findAllByEstudianteId(id), HttpStatus.OK);
     }
 

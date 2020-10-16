@@ -1,5 +1,7 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
+import com.rc.logogenial.basicadminservice.entity.Grupo;
+import com.rc.logogenial.basicadminservice.entity.GrupoEstudiante;
 import com.rc.logogenial.basicadminservice.entity.Role;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
@@ -38,6 +40,11 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
     @Autowired
     private UsuarioRepository repository;
 
+    @Autowired
+    private GrupoEstudianteService grupoEstudianteService;
+
+    @Autowired
+    private GrupoService grupoService;
 
     private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
@@ -74,7 +81,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         return repository.findByUsername(username);
     }
 
-    public Usuario create(Usuario usuario) throws ResourceFoundException {
+    public Usuario create(Usuario usuario) throws ResourceFoundException, ResourceNotFoundException {
         Optional<Usuario> usuarioConsulta = repository.findByUsernameOrEmail(usuario.getUsername(), usuario.getEmail());
         if(usuarioConsulta.isPresent()) {
             throw new ResourceFoundException("Usuario "+ usuario.getUsername() + " o email: " + usuario.getEmail());
@@ -111,7 +118,16 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
                 usuario.setEstado(1);
                 break;
         }
-        return repository.save(usuario);
+        Usuario nuevoUsuario = repository.save(usuario);
+        if(usuario.getRoles().size() == 1){
+            // para usuarios estudiantes
+            GrupoEstudiante grupoEstudiante = new GrupoEstudiante();
+            Grupo grupoInvitado = grupoService.findById(5);
+            grupoEstudiante.setGrupo(grupoInvitado);
+            grupoEstudiante.setUsuarioestudiante(nuevoUsuario);
+            grupoEstudianteService.create(grupoEstudiante);
+        }
+        return  nuevoUsuario;
     }
 
     public void delete(Usuario Usuario) throws ResourceNotFoundException {

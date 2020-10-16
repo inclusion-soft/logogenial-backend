@@ -26,7 +26,7 @@ public class GrupoController {
     }
 
     @PostMapping
-    public ResponseEntity<Grupo> create(@RequestBody Grupo Grupo) throws ResourceFoundException {
+    public ResponseEntity<Grupo> create(@RequestBody Grupo Grupo) throws ResourceFoundException, ResourceNotFoundException {
         return new ResponseEntity<>(service.create(Grupo), HttpStatus.OK);
     }
 

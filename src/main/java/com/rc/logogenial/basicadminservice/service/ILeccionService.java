@@ -8,4 +8,5 @@ public interface ILeccionService extends IGenericSimpleService<Leccion> {
     public void delete(Leccion nivel) throws ResourceNotFoundException;
     public Iterable<Leccion> findAllByGrupoNivelTemaId(int id) ;
 
+    Iterable<Leccion> findAllByEstudianteId(int id);
 }

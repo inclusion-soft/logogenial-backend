@@ -26,7 +26,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) throws ResourceFoundException {
+    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) throws ResourceFoundException, ResourceNotFoundException {
         return new ResponseEntity<>(usuarioService.create(usuario), HttpStatus.OK);
     }
 
