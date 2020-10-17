@@ -1,5 +1,6 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
+import com.rc.logogenial.basicadminservice.entity.GrupoNivel;
 import com.rc.logogenial.basicadminservice.entity.GrupoNivelTema;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
@@ -75,6 +76,11 @@ public class GrupoNivelTemaService extends BaseService<GrupoNivelTema> implement
         throw new ResourceNotFoundException("Niveles", "id", Integer.toString(grupoNivelTema.getId()));
     }
 
+
+    @Override
+    public Iterable<GrupoNivelTema> findAllByGrupoNivelId(int id) {
+        return  repository.findAllByGrupoNivel_Id(id);
+    }
 
     @Override
     public ResultSearchData<GrupoNivelTema> Search(PageablePrimitive pag, int grupoNivelId) {

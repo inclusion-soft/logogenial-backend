@@ -1,5 +1,6 @@
 package com.rc.logogenial.basicadminservice.controller;
 
+import com.rc.logogenial.basicadminservice.entity.Grupo;
 import com.rc.logogenial.basicadminservice.entity.GrupoNivel;
 import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
@@ -59,6 +60,11 @@ public class GrupoNivelController {
         PageablePrimitive pag = new PageablePrimitive(page, size,sortBy, sortOrder);
         ResultSearchData<GrupoNivel> datos = service.Search(pag, grupoId);
         return new ResponseEntity<ResultSearchData<GrupoNivel>>(datos, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllByGrupoId/{id}")
+    public ResponseEntity<Iterable<GrupoNivel>> findAllByEstudianteId(@PathVariable("id") int id) {
+        return new ResponseEntity<>(service.findAllByGrupoId(id), HttpStatus.OK);
     }
 
 }

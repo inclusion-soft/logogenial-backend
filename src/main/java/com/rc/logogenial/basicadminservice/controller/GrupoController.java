@@ -1,10 +1,12 @@
 package com.rc.logogenial.basicadminservice.controller;
 
 import com.rc.logogenial.basicadminservice.entity.Grupo;
+import com.rc.logogenial.basicadminservice.entity.Leccion;
 import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 import com.rc.logogenial.basicadminservice.service.IGenericService;
+import com.rc.logogenial.basicadminservice.service.IGrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class GrupoController {
 
     @Autowired
-    private IGenericService<Grupo> service;
+    private IGrupoService service;
 
     @GetMapping(value = "/health")
     public ResponseEntity<String> health() {
@@ -49,6 +51,11 @@ public class GrupoController {
     @GetMapping("/findAll")
     public ResponseEntity<Iterable<Grupo>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllByEstudianteId/{id}")
+    public ResponseEntity<Iterable<Grupo>> findAllByEstudianteId(@PathVariable("id") int id) {
+        return new ResponseEntity<>(service.findAllByEstudianteId(id), HttpStatus.OK);
     }
 
     @GetMapping("/search")
