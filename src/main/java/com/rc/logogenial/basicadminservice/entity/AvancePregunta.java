@@ -40,8 +40,9 @@ public class AvancePregunta {
     @JoinColumn(name = "respuesta_pregunta", columnDefinition = "int4 NULL")
     private OpcionRespuesta respuesta;
 
-    @Column(name = "fecha_creacion", columnDefinition = "NOT NULL")
-    private Date fechaCreacion ;
+    @Column(name = "fecha_creacion")
+    @Builder.Default
+    private Date fechaCreacion = new Date("2020/12/31");
 
     /** Tipo: Leccion o practica **/
     @Column(name = "tipo_avance", columnDefinition = "INT NOT NULL")
@@ -50,6 +51,9 @@ public class AvancePregunta {
     /** Tipo: Correcto 1, Incorrecto 0 **/
     @Column(name = "resultado", columnDefinition = "INT NOT NULL")
     private int resultado;
+
+    @Column(name = "puntaje", columnDefinition = "INT NULL")
+    private int puntaje;
 
     /** The activo. */
     @Column(name = "activo", columnDefinition = "BOOLEAN NOT NULL DEFAULT TRUE")

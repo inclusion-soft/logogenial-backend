@@ -17,6 +17,9 @@ public class AvancePreguntaService implements IAvancePreguntaService {
     @Override
     public AvancePregunta create(AvancePregunta avancePregunta) {
         avancePregunta.setFechaCreacion(new Date());
+        if(avancePregunta.getRespuesta().getId() == 0){
+            avancePregunta.setRespuesta(null);
+        }
         return repository.save(avancePregunta);
     }
 
