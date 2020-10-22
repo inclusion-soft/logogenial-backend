@@ -79,8 +79,8 @@ INSERT INTO grupo_nivel_tema (id, activo, eliminado, grupo_nivel_id, tema_id) VA
 INSERT INTO grupo_nivel_tema (id, activo, eliminado, grupo_nivel_id, tema_id) VALUES (3, true, to_date('09-09-1999','dd-mm-yyyy'), 5, 3);
 INSERT INTO grupo_nivel_tema (id, activo, eliminado, grupo_nivel_id, tema_id) VALUES (5, true, to_date('09-09-1999','dd-mm-yyyy'), 4, 5);
 
-INSERT INTO leccion (id, activo, eliminado, enumeracion, leyenda, grupo_nivel_tema_id) VALUES (1, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 'letras m y p', 5);
-INSERT INTO leccion (id, activo, eliminado, enumeracion, leyenda, grupo_nivel_tema_id) VALUES (2, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 'lugares', 5);
+INSERT INTO leccion (id, activo, eliminado, enumeracion, leyenda, puntos, grupo_nivel_tema_id) VALUES (1, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 'letras m y p', 1000, 5);
+INSERT INTO leccion (id, activo, eliminado, enumeracion, leyenda, puntos, grupo_nivel_tema_id) VALUES (2, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 'lugares', 1000, 5);
 
 INSERT INTO pregunta (id, activo, aprobacion, descripcion, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (1, true, true, 'm-mama', to_date('09-09-1999','dd-mm-yyyy'), 1, 1, 1, 14, 4);
 INSERT INTO pregunta (id, activo, aprobacion, descripcion, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (2, true, true, 'm-animales', to_date('09-09-1999','dd-mm-yyyy'), 2, 1, 1, 6, 4);

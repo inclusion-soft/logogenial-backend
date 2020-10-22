@@ -37,6 +37,8 @@ public class Leccion {
     @Column(name = "enumeracion", columnDefinition = "INT NOT NULL")
     private int enumeracion;
 
+    @Column(name = "puntos", columnDefinition = "INT NOT NULL")
+    private int puntos;
 
     /** The activo. */
     @Column(name = "activo", columnDefinition = "BOOLEAN NOT NULL DEFAULT TRUE")

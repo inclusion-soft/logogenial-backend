@@ -29,7 +29,7 @@ public class OpcionRespuesta {
     @JoinColumn(name = "pregunta_id", columnDefinition = "int4 NOT NULL")
     private Pregunta pregunta;
 
-    @Column(name = "orden", columnDefinition = "INT NOT NULL")
+    @Column(name = "orden", columnDefinition = "INT NULL")
     private int orden;
 
     @NotFound(action= NotFoundAction.IGNORE)

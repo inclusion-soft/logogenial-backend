@@ -8,6 +8,5 @@ import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 
 public interface IGrupoService extends IGenericService<Grupo> {
     public void delete(Grupo nivel) throws ResourceNotFoundException;
-    //ResultSearchData<Grupo> findAllSearch(int page, int size, String sortBy, String sortOrder );
     Iterable<Grupo> findAllByEstudianteId(int id);
 }
