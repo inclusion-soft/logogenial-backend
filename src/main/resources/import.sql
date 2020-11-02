@@ -52,8 +52,8 @@ INSERT INTO archivo (id, activo, nombre, eliminado) VALUES (15, true, 'archivo20
 INSERT INTO archivo (id, activo, eliminado, nombre) VALUES (17, true, to_date('09-09-1999','dd-mm-yyyy'), 'archivo2020-10-14T09_13_39_829.jpg');
 INSERT INTO archivo (id, activo, eliminado, nombre) VALUES (18, true, to_date('09-09-1999','dd-mm-yyyy'), 'archivo2020-10-14T09_14_01_598.jpg');
 
-INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (1, true, 1, true, 1, 'CASA', 'CASA', 1, to_date('09-09-1999','dd-mm-yyyy'));
-INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (2, true, 2, true, 9, 'EL CIELO ES AZUL Y LAS NUBES SON BLANCAS', 'EL CIELO ES AZUL Y LAS NUBES SON BLANCAS', 1, to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (1, true, 1, true, 1, 'Casa', 'Casa', 1, to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, frase, nombre, usuario_creador_id, eliminado) VALUES (2, true, 2, true, 9, 'El cielo es azul y las nubes son blancas', 'El cielo es azul y las nubes son blancas', 1, to_date('09-09-1999','dd-mm-yyyy'));
 INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (4, true, 4, true, 5, to_date('09-09-1999','dd-mm-yyyy'), 'Paloma de la paz', 'paloma de la paz', 1);
 INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (5, true, 5, true, 2, to_date('09-09-1999','dd-mm-yyyy'), 'Platanos', 'Platanos', 1);
 INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (6, true, 6, true, 2, to_date('09-09-1999','dd-mm-yyyy'), 'Mono', 'Mono', 1);
@@ -82,22 +82,22 @@ INSERT INTO grupo_nivel_tema (id, activo, eliminado, grupo_nivel_id, tema_id) VA
 INSERT INTO leccion (id, activo, eliminado, enumeracion, leyenda, puntos, grupo_nivel_tema_id) VALUES (1, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 'letras m y p', 1000, 5);
 INSERT INTO leccion (id, activo, eliminado, enumeracion, leyenda, puntos, grupo_nivel_tema_id) VALUES (2, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 'lugares', 1000, 5);
 
-INSERT INTO pregunta (id, activo, aprobacion, descripcion, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (1, true, true, 'm-mama', to_date('09-09-1999','dd-mm-yyyy'), 1, 1, 1, 14, 4);
-INSERT INTO pregunta (id, activo, aprobacion, descripcion, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (2, true, true, 'm-animales', to_date('09-09-1999','dd-mm-yyyy'), 2, 1, 1, 6, 4);
-INSERT INTO pregunta (id, activo, aprobacion, descripcion, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (3, true, true, 'm-personajes', to_date('09-09-1999','dd-mm-yyyy'), 3, 2, 1, 12, 4);
-INSERT INTO pregunta (id, activo, aprobacion, descripcion, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (4, true, true, 'lugar-m', to_date('09-09-1999','dd-mm-yyyy'), 2, 1, 2, 17, 4);
-INSERT INTO pregunta (id, activo, aprobacion, descripcion, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (5, true, true, 'lugar-p', to_date('09-09-1999','dd-mm-yyyy'), 2, 2, 2, 18, 4);
+INSERT INTO pregunta (id, activo, aprobacion, frase_respuesta, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (1, true, true, 'amo a mi mama', to_date('09-09-1999','dd-mm-yyyy'), 1, 1, 1, 14, 4);
+INSERT INTO pregunta (id, activo, aprobacion, frase_respuesta, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (2, true, true, 'Mono', to_date('09-09-1999','dd-mm-yyyy'), 2, 1, 1, 6, 4);
+INSERT INTO pregunta (id, activo, aprobacion, frase_respuesta, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (3, true, true, 'mimo', to_date('09-09-1999','dd-mm-yyyy'), 3, 2, 1, 12, 4);
+INSERT INTO pregunta (id, activo, aprobacion, frase_respuesta, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (4, true, true, 'montañas', to_date('09-09-1999','dd-mm-yyyy'), 2, 1, 2, 17, 4);
+INSERT INTO pregunta (id, activo, aprobacion, frase_respuesta, eliminado, enumeracion, tipopregunta, leccion_id, respuesta_datagenia_id, usuario_autor_id) VALUES (5, true, true, 'paisaje', to_date('09-09-1999','dd-mm-yyyy'), 2, 2, 2, 18, 4);
 
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (1, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 7, 1);
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (2, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 15, 1);
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (5, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 9, 3);
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (6, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 11, 3);
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (4, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 13, 2);
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (3, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 9, 2);
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (7, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 15, 4);
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (8, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 1, 5);
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (9, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 5, 5);
-INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id) VALUES (10, true, to_date('09-09-1999','dd-mm-yyyy'), 3, 4, 5);
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (1, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 7, 1, 'mi papa');
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (2, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 15, 1, 'con mi mama y mi hermana en la playa');
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (5, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 9, 3, 'pulpo');
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (6, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 11, 3, 'seis pelotas de colores');
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (4, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 13, 2, 'abeja');
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (3, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 9, 2, 'pulpo');
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (7, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 15, 4, 'con mi mama y mi hermana en la playa');
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (8, true, to_date('09-09-1999','dd-mm-yyyy'), 1, 1, 5, 'Casa');
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (9, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 5, 5, 'Platanos');
+INSERT INTO opcion_respuesta (id, activo, eliminado, orden, opcion_datagenia_id, pregunta_id, frase_respuesta) VALUES (10, true, to_date('09-09-1999','dd-mm-yyyy'), 3, 4, 5, 'Paloma de la paz');
 
 insert into grupo_estudiante (activo, eliminado, grupo_id, usuario_estudiante_id) values (true, to_date('09-09-1999','dd-mm-yyyy'),5,6);
 insert into grupo_estudiante (activo, eliminado, grupo_id, usuario_estudiante_id) values (true, to_date('09-09-1999','dd-mm-yyyy'),5,8);

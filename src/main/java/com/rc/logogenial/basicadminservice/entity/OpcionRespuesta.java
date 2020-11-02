@@ -32,6 +32,9 @@ public class OpcionRespuesta {
     @Column(name = "orden", columnDefinition = "INT NULL")
     private int orden;
 
+    @Column(name = "frase_respuesta",columnDefinition = "VARCHAR(200) NOT NULL")
+    private String fraseRespuesta;
+
     @NotFound(action= NotFoundAction.IGNORE)
     @ManyToOne(fetch = FetchType.EAGER)
     @Cascade({ org.hibernate.annotations.CascadeType.REFRESH })
