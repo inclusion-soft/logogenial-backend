@@ -18,7 +18,9 @@ import java.util.Date;
  */
 @Builder
 @Subselect(
-        "select 0 as id, usuario_estudiante_id, date_trunc('day',fecha_creacion) as fecha, tipo_avance as tipo, count(tipo_avance) as cantidad\n" +
+        "select ROW_NUMBER () OVER (\n" +
+                "           ORDER BY usuario_estudiante_id\n" +
+                "        ) as id, usuario_estudiante_id, date_trunc('day',fecha_creacion) as fecha, tipo_avance as tipo, count(tipo_avance) as cantidad\n" +
                 "from avance_pregunta\n" +
                 "group by usuario_estudiante_id, date_trunc('day',fecha_creacion), tipo_avance\n" +
                 "order by date_trunc('day',fecha_creacion), tipo_avance"
