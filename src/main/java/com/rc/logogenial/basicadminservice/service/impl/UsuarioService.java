@@ -164,12 +164,18 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         }
     }
 
-    public Usuario update(Usuario Usuario) throws ResourceNotFoundException {
-        if (repository.findById(Usuario.getId()).isPresent())
+    public Usuario update(Usuario usuario) throws ResourceNotFoundException {
+        Optional<Usuario> usuarioConsultado = repository.findById(usuario.getId());
+        if (usuarioConsultado.isPresent())
         {
-            return repository.save(Usuario);
+            usuarioConsultado.get().setEmail(usuario.getEmail());
+            usuarioConsultado.get().setUsername(usuario.getEmail());
+            usuarioConsultado.get().setNombre(usuario.getNombre());
+            String clave = passwordEncoder.encode(usuario.getPassword());
+            usuarioConsultado.get().setPassword(clave);
+            return repository.save(usuarioConsultado.get());
         }
-        throw new ResourceNotFoundException("User", "id", Integer.toString(Usuario.getId()));
+        throw new ResourceNotFoundException("User", "id", Integer.toString(usuario.getId()));
     }
 
     @Override
