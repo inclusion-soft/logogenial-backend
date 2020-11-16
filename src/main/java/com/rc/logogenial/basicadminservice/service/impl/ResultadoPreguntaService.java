@@ -11,7 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ResultadoPreguntaService implements IResultadoPreguntaService {
@@ -31,9 +33,9 @@ public class ResultadoPreguntaService implements IResultadoPreguntaService {
     @Override
     public List<ResultadoPregunta> findLastHitsByFechaAndUsuarioId(int id, int _cantidad) {
         int cantidad = _cantidad * 2;
-        Pageable paging = PageRequest.of(0, cantidad );
+        Pageable paging = PageRequest.of(0, cantidad);
         Page<ResultadoPregunta>  listaPaginada = repository.findLastHitsByFechaAndUsuarioId(paging, id);
-        return listaPaginada.getContent();
+        return listaPaginada.getContent().stream().sorted(Comparator.comparing(ResultadoPregunta::getFecha)).collect(Collectors.toList());
     }
 
 
