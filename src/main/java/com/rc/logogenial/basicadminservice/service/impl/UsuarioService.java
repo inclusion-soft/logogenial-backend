@@ -171,7 +171,11 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
             usuarioConsultado.get().setEmail(usuario.getEmail());
             usuarioConsultado.get().setUsername(usuario.getEmail());
             usuarioConsultado.get().setNombre(usuario.getNombre());
-            String clave = passwordEncoder.encode(usuario.getPassword());
+            String clave = usuario.getPassword();
+            if(clave.length() <= 10)  {
+                clave = passwordEncoder.encode(usuario.getPassword());
+            }
+
             usuarioConsultado.get().setPassword(clave);
             return repository.save(usuarioConsultado.get());
         }
