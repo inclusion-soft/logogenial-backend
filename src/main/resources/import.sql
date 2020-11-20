@@ -145,4 +145,4 @@ SELECT setval('leccion_id_seq', (SELECT MAX(id) FROM LECCION)+1);
 SELECT setval('pregunta_id_seq', (SELECT MAX(id) FROM PREGUNTA)+1);
 SELECT setval('opcion_respuesta_id_seq', (SELECT MAX(id) FROM opcion_respuesta)+1);
 SELECT setval('grupo_estudiante_id_seq', (SELECT MAX(id) FROM grupo_estudiante)+1);
-SELECT setval('avance_pregunta_seq', (SELECT MAX(id) FROM avance_pregunta)+1);
+SELECT setval('avance_pregunta_id_seq', (SELECT MAX(id) FROM avance_pregunta)+1);
