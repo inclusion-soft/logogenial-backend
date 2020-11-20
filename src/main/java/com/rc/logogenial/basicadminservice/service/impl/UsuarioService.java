@@ -176,7 +176,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
                 clave = passwordEncoder.encode(usuario.getPassword());
             }
             usuarioConsultado.get().setPassword(clave);
-            if(usuario.getAvatar().length() == 0 && usuarioConsultado.get().getAvatar().length() == 0) {
+            if(usuario.getAvatar() == null && usuarioConsultado.get().getAvatar() == null) {
                 usuarioConsultado.get().setAvatar("av-1.png");
             }
             return repository.save(usuarioConsultado.get());
