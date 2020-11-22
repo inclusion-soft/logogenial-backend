@@ -169,7 +169,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         if (usuarioConsultado.isPresent())
         {
             usuarioConsultado.get().setEmail(usuario.getEmail());
-            usuarioConsultado.get().setUsername(usuario.getEmail());
+            usuarioConsultado.get().setUsername(usuario.getUsername());
             usuarioConsultado.get().setNombre(usuario.getNombre());
             String clave = usuario.getPassword();
             if(clave.length() <= 10)  {
