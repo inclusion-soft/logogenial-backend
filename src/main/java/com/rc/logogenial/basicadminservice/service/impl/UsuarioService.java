@@ -35,7 +35,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService extends  BaseService<Usuario> implements IGenericService<Usuario>,  UserDetailsService {
+public class UsuarioService extends  BaseService<Usuario> implements IUsuarioService<Usuario>,  UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;
@@ -191,4 +191,13 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         return (ResultSearchData<Usuario>) this.getResultSearch(pagedResult);
     }
 
+    @Override
+    public List<Usuario> findAllStudends() {
+        return repository.findAllStudendts();
+    }
+
+    @Override
+    public List<Usuario> findAllTeachers() {
+        return repository.findAllTeachers();
+    }
 }

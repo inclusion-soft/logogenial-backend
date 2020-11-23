@@ -1,6 +1,7 @@
 package com.rc.logogenial.basicadminservice.controller;
 
 import com.rc.logogenial.basicadminservice.entity.GrupoEstudiante;
+import com.rc.logogenial.basicadminservice.entity.GrupoEstudiante;
 import com.rc.logogenial.basicadminservice.entity.Pregunta;
 import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
@@ -28,8 +29,8 @@ public class GrupoEstudianteController {
     }
 
     @PostMapping
-    public ResponseEntity<GrupoEstudiante> create(@RequestBody GrupoEstudiante Niveles) throws ResourceFoundException {
-        return new ResponseEntity<>(service.create(Niveles), HttpStatus.OK);
+    public ResponseEntity<GrupoEstudiante> create(@RequestBody GrupoEstudiante grupoEstudiante) throws ResourceFoundException, ResourceNotFoundException {
+        return new ResponseEntity<>(service.create(grupoEstudiante), HttpStatus.OK);
     }
 
     @GetMapping("/findById")
@@ -57,5 +58,11 @@ public class GrupoEstudianteController {
     public ResponseEntity<Iterable<GrupoEstudiante>> findAllByEstudianteId(@PathVariable("id") int id) {
         return new ResponseEntity<>(service.findAllByEstudianteId(id), HttpStatus.OK);
     }
-
+    @GetMapping("/search")
+    public ResponseEntity<ResultSearchData<GrupoEstudiante>> search(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                              @RequestParam(name = "size", defaultValue = "10") int size, @RequestParam(name = "sortBy") String sortBy
+            , @RequestParam(name = "sortOrder") String sortOrder ) {
+        ResultSearchData<GrupoEstudiante> datos = service.findAllSearch(page, size,sortBy, sortOrder);
+        return new ResponseEntity<ResultSearchData<GrupoEstudiante>>(datos, new HttpHeaders(), HttpStatus.OK);
+    }
 }

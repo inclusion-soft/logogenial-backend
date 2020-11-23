@@ -1,5 +1,6 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
+import com.rc.logogenial.basicadminservice.entity.Datagenia;
 import com.rc.logogenial.basicadminservice.entity.GrupoEstudiante;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
@@ -80,5 +81,12 @@ public class GrupoEstudianteService extends BaseService<GrupoEstudiante> impleme
     @Override
     public List<GrupoEstudiante> findAllByEstudianteId(int estudianteId) {
         return repository.findAllByEstudianteId(estudianteId);
+    }
+
+    @Override
+    public ResultSearchData<GrupoEstudiante> findAllSearch(int page, int size, String sortBy, String sortOrder) {
+        Pageable paging = PageRequest.of(page, size, sortOrder.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending());
+        Page<GrupoEstudiante> pagedResult = repository.findAll(paging);
+        return (ResultSearchData<GrupoEstudiante>) this.getResultSearch(pagedResult);
     }
 }

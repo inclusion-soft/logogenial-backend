@@ -5,6 +5,7 @@ import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 import com.rc.logogenial.basicadminservice.service.IGenericService;
+import com.rc.logogenial.basicadminservice.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
 
     @Autowired
-    private IGenericService<Usuario> usuarioService;
+    private IUsuarioService<Usuario> usuarioService;
 
     @GetMapping(value = "/health")
     public ResponseEntity<String> health() {
@@ -49,6 +50,16 @@ public class UsuarioController {
     @GetMapping("/findAll")
     public ResponseEntity<Iterable<Usuario>> findAll() {
         return new ResponseEntity<>(usuarioService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllStudends")
+    public ResponseEntity<Iterable<Usuario>> findAllStudends() {
+        return new ResponseEntity<>(usuarioService.findAllStudends(), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllTeachers")
+    public ResponseEntity<Iterable<Usuario>> findAllTeachers() {
+        return new ResponseEntity<>(usuarioService.findAllTeachers(), HttpStatus.OK);
     }
 
     @GetMapping("/search")

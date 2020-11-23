@@ -58,6 +58,11 @@ public class GrupoController {
         return new ResponseEntity<>(service.findAllByEstudianteId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/findAllByDocenteId/{id}")
+    public ResponseEntity<Iterable<Grupo>> findAllByDocenteId(@PathVariable("id") int id) {
+        return new ResponseEntity<>(service.findAllByUsuarioId(id), HttpStatus.OK);
+    }
+
     @GetMapping("/search")
     public ResponseEntity<ResultSearchData<Grupo>> search(@RequestParam(name = "page", defaultValue = "0") int page,
                                                           @RequestParam(name = "size", defaultValue = "10") int size, @RequestParam(name = "sortBy") String sortBy

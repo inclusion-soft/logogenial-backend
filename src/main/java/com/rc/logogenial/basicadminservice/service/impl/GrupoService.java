@@ -92,4 +92,9 @@ public class GrupoService extends BaseService<Grupo> implements IGrupoService {
         Page<Grupo> pagedResult = repository.findAllByUsuario_Id(paging, usuario.getId());
         return (ResultSearchData<Grupo>) this.getResultSearch(pagedResult);
     }
+
+    @Override
+    public List<Grupo> findAllByUsuarioId(int usuarioId) {
+        return repository.findAllByUsuario_Id(usuarioId);
+    }
 }

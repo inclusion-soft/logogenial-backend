@@ -21,4 +21,6 @@ public interface IGrupoRepository extends CrudRepository<Grupo,Integer> {
             "inner join grupo_estudiante ge on g.id = ge.grupo_id\n" +
             "where ge.usuario_estudiante_id = :estudianteId", nativeQuery = true)
     public List<Grupo> findAllByEstudianteId(@Param("estudianteId") int estudianteId);
+
+    public List<Grupo> findAllByUsuario_Id(@Param("usuarioId") int usuarioId);
 }
