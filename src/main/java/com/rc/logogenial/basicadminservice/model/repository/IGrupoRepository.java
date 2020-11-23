@@ -19,7 +19,7 @@ public interface IGrupoRepository extends CrudRepository<Grupo,Integer> {
     @Query(value = "select *\n" +
             "from grupo g\n" +
             "inner join grupo_estudiante ge on g.id = ge.grupo_id\n" +
-            "where ge.usuario_estudiante_id = :estudianteId", nativeQuery = true)
+            "where ge.usuario_estudiante_id = :estudianteId and ge.eliminado = to_date('09-09-1999','dd-mm-yyyy')", nativeQuery = true)
     public List<Grupo> findAllByEstudianteId(@Param("estudianteId") int estudianteId);
 
     public List<Grupo> findAllByUsuario_Id(@Param("usuarioId") int usuarioId);
