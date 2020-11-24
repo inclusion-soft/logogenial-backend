@@ -1,12 +1,13 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
-import com.rc.logogenial.basicadminservice.entity.Niveles;
+import com.rc.logogenial.basicadminservice.entity.Grupo;
+import com.rc.logogenial.basicadminservice.entity.GrupoNivel;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
-import com.rc.logogenial.basicadminservice.model.repository.INivelesRepository;
+import com.rc.logogenial.basicadminservice.model.repository.IGrupoNivelRepository;
 import com.rc.logogenial.basicadminservice.model.shared.PageablePrimitive;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
-import com.rc.logogenial.basicadminservice.service.INivelesService;
+import com.rc.logogenial.basicadminservice.service.IGrupoNivelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,24 +15,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class NivelesService extends BaseService<Niveles> implements INivelesService {
+public class GrupoNivelService extends BaseService<GrupoNivel> implements IGrupoNivelService {
 
     @Autowired
-    private INivelesRepository repository;
+    private IGrupoNivelRepository repository;
 
     @Autowired
     private UsuarioService usuarioService;
 
     @Override
-    public Niveles create(Niveles grupo) {
+    public GrupoNivel create(GrupoNivel grupo) {
         return repository.save(grupo);
     }
 
     @Override
-    public void delete(Niveles tema) throws ResourceNotFoundException {
+    public void delete(GrupoNivel tema) throws ResourceNotFoundException {
         if (repository.findById(tema.getId()).isPresent()) {
             repository.delete(tema);
         }
@@ -51,12 +50,12 @@ public class NivelesService extends BaseService<Niveles> implements INivelesServ
     }
 
     @Override
-    public Iterable<Niveles> findAll() {
+    public Iterable<GrupoNivel> findAll() {
         return  repository.findAll();
     }
 
     @Override
-    public Niveles findById(int id) throws ResourceNotFoundException {
+    public GrupoNivel findById(int id) throws ResourceNotFoundException {
         if (repository.findById(id).isPresent())
         {
             return repository.findById(id).get();
@@ -68,7 +67,7 @@ public class NivelesService extends BaseService<Niveles> implements INivelesServ
     }
 
     @Override
-    public Niveles update(Niveles nivel) throws ResourceNotFoundException {
+    public GrupoNivel update(GrupoNivel nivel) throws ResourceNotFoundException {
         if (repository.findById(nivel.getId()).isPresent())
         {
             return repository.save(nivel);
@@ -76,14 +75,18 @@ public class NivelesService extends BaseService<Niveles> implements INivelesServ
         throw new ResourceNotFoundException("Niveles", "id", Integer.toString(nivel.getId()));
     }
 
+    @Override
+    public Iterable<GrupoNivel> findAllByGrupoId(int id) {
+        return  repository.findAllByGrupo_Id(id);
+    }
 
     @Override
-    public ResultSearchData<Niveles> Search(PageablePrimitive pag, int grupoId) {
+    public ResultSearchData<GrupoNivel> Search(PageablePrimitive pag, int grupoId) {
 
         Pageable paging = PageRequest.of(pag.getPage(), pag.getSize(),
                 pag.getSortBy().equals("asc") ? Sort.by(pag.getSortOrder()).ascending() : Sort.by(pag.getSortBy()).descending());
         Usuario usuario = usuarioService.getUserLogged();
-        Page<Niveles> pagedResult = repository.findAllByGrupo_Id(paging, grupoId);
-        return (ResultSearchData<Niveles>) this.getResultSearch(pagedResult);
+        Page<GrupoNivel> pagedResult = repository.findAllByGrupo_Id(paging, grupoId);
+        return (ResultSearchData<GrupoNivel>) this.getResultSearch(pagedResult);
     }
 }

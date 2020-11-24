@@ -20,7 +20,7 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true, length = 20)
+    @Column(unique = true, length = 80)
     private String username;
 
     @Column(length = 255)
@@ -33,6 +33,9 @@ public class Usuario implements Serializable {
 
     @Column(length = 50)
     private String apellido;
+
+    @Column(length = 20)
+    private String avatar;
 
     /** The Intentos fallidos. */
     @Column(name = "INTENTOS_FALLIDOS")

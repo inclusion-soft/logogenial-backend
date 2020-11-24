@@ -28,7 +28,7 @@ public class TemaController  {
     }
 
     @PostMapping
-    public ResponseEntity<Tema> create(@RequestBody Tema Tema) throws ResourceFoundException {
+    public ResponseEntity<Tema> create(@RequestBody Tema Tema) throws ResourceFoundException, ResourceNotFoundException {
         return new ResponseEntity<>(service.create(Tema), HttpStatus.OK);
     }
 

@@ -25,7 +25,7 @@ public class DatageniaController {
     private IGenericService<Datagenia> service;
 
     @PostMapping
-    public ResponseEntity<Datagenia> create(@RequestBody Datagenia Datagenia) throws ResourceFoundException {
+    public ResponseEntity<Datagenia> create(@RequestBody Datagenia Datagenia) throws ResourceFoundException, ResourceNotFoundException {
         return new ResponseEntity<>(service.create(Datagenia), HttpStatus.OK);
     }
 

@@ -21,6 +21,13 @@ public class ResourceNotFoundException extends Exception {
         this.fieldValue = fieldValue;
     }
 
+    public ResourceNotFoundException( String mensaje) {
+        super(String.format("%s not found with %s : '%s'", mensaje));
+        this.resourceName = "";
+        this.fieldName = "";
+        this.fieldValue = "";
+    }
+
     public String getResourceName() {
         return resourceName;
     }

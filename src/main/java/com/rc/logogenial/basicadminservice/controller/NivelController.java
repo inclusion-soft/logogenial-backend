@@ -23,7 +23,7 @@ public class NivelController {
 
     @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize("hasPermission('hasAccess','ADMINISTRADOR','ESTUDIANTE')")
-    public ResponseEntity<Nivel> create(@RequestBody Nivel Nivel) throws ResourceFoundException {
+    public ResponseEntity<Nivel> create(@RequestBody Nivel Nivel) throws ResourceFoundException, ResourceNotFoundException {
         return new ResponseEntity<>(service.create(Nivel), HttpStatus.OK);
     }
 

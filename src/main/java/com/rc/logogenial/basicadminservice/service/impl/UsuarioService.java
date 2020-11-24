@@ -1,5 +1,7 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
+import com.rc.logogenial.basicadminservice.entity.Grupo;
+import com.rc.logogenial.basicadminservice.entity.GrupoEstudiante;
 import com.rc.logogenial.basicadminservice.entity.Role;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
@@ -33,16 +35,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService extends  BaseService<Usuario> implements IGenericService<Usuario>,  UserDetailsService {
+public class UsuarioService extends  BaseService<Usuario> implements IUsuarioService<Usuario>,  UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;
+
+    @Autowired
+    private GrupoEstudianteService grupoEstudianteService;
+
+    @Autowired
+    private GrupoService grupoService;
 
     private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
     public Usuario getUserLogged() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -73,7 +82,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         return repository.findByUsername(username);
     }
 
-    public Usuario create(Usuario usuario) throws ResourceFoundException {
+    public Usuario create(Usuario usuario) throws ResourceFoundException, ResourceNotFoundException {
         Optional<Usuario> usuarioConsulta = repository.findByUsernameOrEmail(usuario.getUsername(), usuario.getEmail());
         if(usuarioConsulta.isPresent()) {
             throw new ResourceFoundException("Usuario "+ usuario.getUsername() + " o email: " + usuario.getEmail());
@@ -86,23 +95,40 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         // Por defecto el usuario esta inactivo
         usuario.setEstado(0);
 
+        Role rolEstudiante = new Role();
+        rolEstudiante.setId(3L);
+        rolEstudiante.setNombre("Estudiante");
+
+        // usuarios de la app Mobile no traen roles por ende son estudiantes
+        if(usuario.getRoles().size() ==0) {
+            usuario.getRoles().add( rolEstudiante);
+        }
+
         // Configura el rol que solicitó
         switch(usuario.getRoles().get(0).getNombre()){
             case "Docente / Tutor":
                 usuario.getRoles().get(0).setId(2L);
-                //usuario.getRoles().get(0).setNombre("TUTOR");
+                usuario.getRoles().add( rolEstudiante);
                 break;
             case "Administrador":
                 usuario.getRoles().get(0).setId(1L);
-                //usuario.getRoles().get(0).setNombre("ADMINISTRADOR");
+                usuario.getRoles().add( rolEstudiante);
                 break;
             case "Estudiante":
                 usuario.getRoles().get(0).setId(3L);
-                //usuario.getRoles().get(0).setNombre("ESTUDIANTE");
                 usuario.setEstado(1);
                 break;
         }
-        return repository.save(usuario);
+        Usuario nuevoUsuario = repository.save(usuario);
+        if(usuario.getRoles().size() == 1){
+            // para usuarios estudiantes
+            GrupoEstudiante grupoEstudiante = new GrupoEstudiante();
+            Grupo grupoInvitado = grupoService.findById(5);
+            grupoEstudiante.setGrupo(grupoInvitado);
+            grupoEstudiante.setUsuarioestudiante(nuevoUsuario);
+            grupoEstudianteService.create(grupoEstudiante);
+        }
+        return  nuevoUsuario;
     }
 
     public void delete(Usuario Usuario) throws ResourceNotFoundException {
@@ -139,12 +165,24 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         }
     }
 
-    public Usuario update(Usuario Usuario) throws ResourceNotFoundException {
-        if (repository.findById(Usuario.getId()).isPresent())
+    public Usuario update(Usuario usuario) throws ResourceNotFoundException {
+        Optional<Usuario> usuarioConsultado = repository.findById(usuario.getId());
+        if (usuarioConsultado.isPresent())
         {
-            return repository.save(Usuario);
+            usuarioConsultado.get().setEmail(usuario.getEmail());
+            usuarioConsultado.get().setUsername(usuario.getUsername());
+            usuarioConsultado.get().setNombre(usuario.getNombre());
+            String clave = usuario.getPassword();
+            if(clave.length() <= 10)  {
+                clave = passwordEncoder.encode(usuario.getPassword());
+            }
+            usuarioConsultado.get().setPassword(clave);
+            if(usuario.getAvatar() == null && usuarioConsultado.get().getAvatar() == null) {
+                usuarioConsultado.get().setAvatar("av-1.png");
+            }
+            return repository.save(usuarioConsultado.get());
         }
-        throw new ResourceNotFoundException("User", "id", Integer.toString(Usuario.getId()));
+        throw new ResourceNotFoundException("User", "id", Integer.toString(usuario.getId()));
     }
 
     @Override
@@ -154,4 +192,13 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         return (ResultSearchData<Usuario>) this.getResultSearch(pagedResult);
     }
 
+    @Override
+    public List<Usuario> findAllStudends() {
+        return repository.findAllStudendts();
+    }
+
+    @Override
+    public List<Usuario> findAllTeachers() {
+        return repository.findAllTeachers();
+    }
 }
