@@ -16,7 +16,7 @@ import java.util.Date;
 @Entity
 @Table(name="archivo", uniqueConstraints = @UniqueConstraint(name = "archivo_uk", columnNames = "nombre"))
 @SQLDelete(sql = "UPDATE archivo SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
-@Where(clause = "eliminado = to_date('01-01-2020','dd-mm-yyyy')")
+@Where(clause = "eliminado = to_date('09-09-1999','dd-mm-yyyy')")
 public class Archivo    {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +34,5 @@ public class Archivo    {
     /** The eliminado. */
     @Column(name = "eliminado")
     @Builder.Default
-    private Date eliminado = new Date("2020/01/01");
+    private Date eliminado = new Date("1999/09/09");
 }

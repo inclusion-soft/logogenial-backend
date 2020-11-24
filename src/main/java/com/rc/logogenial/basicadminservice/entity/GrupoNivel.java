@@ -15,10 +15,10 @@ import java.util.Date;
 @Setter
 
 @Entity
-@Table(name="niveles", uniqueConstraints =  @UniqueConstraint(name = "niveles_uk", columnNames = {"eliminado","grupo_id","nivel_id"}))
-@SQLDelete(sql = "UPDATE niveles SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
-@Where(clause = "eliminado = to_date('01-01-2020','dd-mm-yyyy')")
-public class Niveles {
+@Table(name="grupo_nivel", uniqueConstraints =  @UniqueConstraint(name = "grupo_nivel_uk", columnNames = {"eliminado","grupo_id","nivel_id"}))
+@SQLDelete(sql = "UPDATE grupo_nivel SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "eliminado = to_date('09-09-1999','dd-mm-yyyy')")
+public class GrupoNivel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -46,7 +46,7 @@ public class Niveles {
     /** The eliminado. */
     @Column(name = "eliminado")
     @Builder.Default
-    private Date eliminado = new Date("2020/01/01");
+    private Date eliminado = new Date("1999/09/09");
 
 
 }

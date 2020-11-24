@@ -78,7 +78,6 @@ public class AuthorizationController {
             Usuario user = usuarioService.findByUsername(loginRequest.getUsername());
             if (user != null) {
                 try {
-
                     if (user.getEstado()== 1 || user.getEstado() == 0) {
                         authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                                 loginRequest.getUsername(), loginRequest.getPassword()));

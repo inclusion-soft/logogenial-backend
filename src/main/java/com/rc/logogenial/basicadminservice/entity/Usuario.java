@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true, length = 20)
+    @Column(unique = true, length = 80)
     private String username;
 
     @Column(length = 255)
@@ -33,6 +34,9 @@ public class Usuario implements Serializable {
 
     @Column(length = 50)
     private String apellido;
+
+    @Column(length = 20)
+    private String avatar;
 
     /** The Intentos fallidos. */
     @Column(name = "INTENTOS_FALLIDOS")
@@ -49,7 +53,7 @@ public class Usuario implements Serializable {
     @JoinTable(name="usuario_rol", joinColumns= @JoinColumn(name="usuario_id"),
             inverseJoinColumns=@JoinColumn(name="role_id"),
             uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
-    private List<Role> roles;
+    private List<Role> roles= new ArrayList<>();;
 
     @Column(name = "activo", columnDefinition = "BOOLEAN NOT NULL DEFAULT TRUE")
     @Builder.Default

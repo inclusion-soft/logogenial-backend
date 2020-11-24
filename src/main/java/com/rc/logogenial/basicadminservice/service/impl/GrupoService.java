@@ -1,11 +1,13 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
 import com.rc.logogenial.basicadminservice.entity.Grupo;
+import com.rc.logogenial.basicadminservice.entity.Leccion;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.model.repository.IGrupoRepository;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 import com.rc.logogenial.basicadminservice.service.IGenericService;
+import com.rc.logogenial.basicadminservice.service.IGrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GrupoService extends BaseService<Grupo> implements IGenericService<Grupo> {
+public class GrupoService extends BaseService<Grupo> implements IGrupoService {
 
     @Autowired
     private IGrupoRepository repository;
@@ -79,10 +81,20 @@ public class GrupoService extends BaseService<Grupo> implements IGenericService<
     }
 
     @Override
+    public Iterable<Grupo> findAllByEstudianteId(int id) {
+        return  repository.findAllByEstudianteId(id);
+    }
+
+    @Override
     public ResultSearchData<Grupo> findAllSearch(int page, int size, String sortBy, String sortOrder) {
         Pageable paging = PageRequest.of(page, size, sortOrder.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending());
         Usuario usuario = usuarioService.getUserLogged();
         Page<Grupo> pagedResult = repository.findAllByUsuario_Id(paging, usuario.getId());
         return (ResultSearchData<Grupo>) this.getResultSearch(pagedResult);
+    }
+
+    @Override
+    public List<Grupo> findAllByUsuarioId(int usuarioId) {
+        return repository.findAllByUsuario_Id(usuarioId);
     }
 }

@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name="grupo", uniqueConstraints = @UniqueConstraint(name = "grupo_uk", columnNames = "nombre"))
 @SQLDelete(sql = "UPDATE grupo SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
-@Where(clause = "eliminado = to_date('01-01-2020','dd-mm-yyyy')")
+@Where(clause = "eliminado = to_date('09-09-1999','dd-mm-yyyy')")
 public class Grupo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class Grupo {
     /** The eliminado. */
     @Column(name = "eliminado")
     @Builder.Default
-    private Date eliminado = new Date("2020/01/01");
+    private Date eliminado = new Date("1999/09/09");
 
 
 }

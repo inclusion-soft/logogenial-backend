@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import com.rc.logogenial.basicadminservice.config.models.UserPrincipal;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
+import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.service.impl.UsuarioService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,6 +32,7 @@ public class UsuarioDetailService implements UserDetailsService {
     /* (non-Javadoc)
      * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
      */
+    @SneakyThrows
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -37,7 +40,7 @@ public class UsuarioDetailService implements UserDetailsService {
         Usuario user = usuarioService.findByUsername(username);
 
         if (user == null ) {
-            throw new UsernameNotFoundException("User Not Found with -> username or email : " + username);
+            throw new ResourceNotFoundException("User Not Found with -> username or email : " + username);
         }
         List<GrantedAuthority> authorities = user.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol.getNombre())).collect(Collectors.toList());
 

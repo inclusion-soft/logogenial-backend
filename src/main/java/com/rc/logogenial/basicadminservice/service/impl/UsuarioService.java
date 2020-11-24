@@ -1,10 +1,13 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
+import com.rc.logogenial.basicadminservice.entity.Grupo;
+import com.rc.logogenial.basicadminservice.entity.GrupoEstudiante;
 import com.rc.logogenial.basicadminservice.entity.Role;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 
+import com.rc.logogenial.basicadminservice.model.dto.UsuarioDto;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
 import com.rc.logogenial.basicadminservice.model.repository.UsuarioRepository;
 import com.rc.logogenial.basicadminservice.service.IGenericService;
@@ -33,20 +36,95 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService extends  BaseService<Usuario> implements IGenericService<Usuario>,  UserDetailsService {
+@Transactional
+public class UsuarioService extends  BaseService<Usuario> implements IUsuarioService<Usuario, UsuarioDto>,  UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;
+
+    @Autowired
+    private GrupoEstudianteService grupoEstudianteService;
+
+    @Autowired
+    private GrupoService grupoService;
 
     private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
     public Usuario getUserLogged() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return repository.findByUsername(userDetails.getUsername());
+    }
+
+
+
+
+
+    @Override
+    public UsuarioDto createSecure(UsuarioDto usuarioDto) throws ResourceFoundException, ResourceNotFoundException {
+        Usuario usuario = convertDtoToEntity(usuarioDto); //repository.findByUsernameOrEmail(usuario.getUsername(), usuario.getEmail());
+        String clave = passwordEncoder.encode(usuario.getPassword());
+        usuario.setPassword(clave);
+        usuario.setUsername(usuarioDto.getEmail());
+        usuario.setIntentosExitosos(0L);
+        usuario.setIntentosFallidos(0L);
+        Usuario nuevoUsuario = repository.save(usuario);
+        return  convertEntityToDto(nuevoUsuario);
+    }
+
+    private UsuarioDto convertEntityToDto(Usuario entity) {
+        UsuarioDto dto = new UsuarioDto();
+        dto.setId(entity.getId());
+        dto.setUsername(entity.getUsername());
+        dto.setNombre(entity.getNombre());
+        dto.setApellido(entity.getApellido());
+        dto.setEstado(entity.getActivo().equals(true) ? 1: 0);
+        dto.setActivo(entity.getActivo());
+        dto.setEmail(entity.getEmail());
+        dto.setAvatar(entity.getAvatar());
+        for(Role rolEntity: entity.getRoles()){
+            dto.getRoles().add(rolEntity.getNombre());
+        }
+        return dto;
+    }
+
+    private Usuario convertDtoToEntity(UsuarioDto dto) {
+        Usuario entity = null;
+        if(dto.getId()> 0){
+            entity = findByUsername(dto.getUsername());
+        }else {
+            entity = new Usuario();
+        }
+        entity.setId(dto.getId());
+        entity.setUsername(dto.getUsername());
+        entity.setNombre(dto.getNombre());
+        entity.setApellido(dto.getApellido());
+        entity.setEstado(dto.getActivo().equals(true) ? 1: 0);
+        entity.setActivo(dto.getActivo());
+        entity.setEmail(dto.getEmail());
+        entity.setAvatar(dto.getAvatar());
+        entity.setPassword(dto.getPassword());
+        for(String rolDto: dto.getRoles()){
+            Role rol = new Role();
+            rol.setNombre(rolDto);
+            switch (rolDto){
+                case "ADMINISTRADOR":
+                    rol.setId(1L);
+                    break;
+                case "TUTOR":
+                    rol.setId(2L);
+                    break;
+                case "ESTUDIANTE":
+                    rol.setId(3L);
+                    break;
+            }
+            entity.getRoles().add(rol);
+        }
+        return entity;
     }
 
     @Override
@@ -73,7 +151,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         return repository.findByUsername(username);
     }
 
-    public Usuario create(Usuario usuario) throws ResourceFoundException {
+    public Usuario create(Usuario usuario) throws ResourceFoundException, ResourceNotFoundException {
         Optional<Usuario> usuarioConsulta = repository.findByUsernameOrEmail(usuario.getUsername(), usuario.getEmail());
         if(usuarioConsulta.isPresent()) {
             throw new ResourceFoundException("Usuario "+ usuario.getUsername() + " o email: " + usuario.getEmail());
@@ -86,23 +164,40 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         // Por defecto el usuario esta inactivo
         usuario.setEstado(0);
 
-        // Configura el rol que solicitó
-        switch(usuario.getRoles().get(0).getNombre()){
-            case "Docente / Tutor":
-                usuario.getRoles().get(0).setId(2L);
-                //usuario.getRoles().get(0).setNombre("TUTOR");
-                break;
-            case "Administrador":
-                usuario.getRoles().get(0).setId(1L);
-                //usuario.getRoles().get(0).setNombre("ADMINISTRADOR");
-                break;
-            case "Estudiante":
-                usuario.getRoles().get(0).setId(3L);
-                //usuario.getRoles().get(0).setNombre("ESTUDIANTE");
-                usuario.setEstado(1);
-                break;
-        }
-        return repository.save(usuario);
+//        Role rolEstudiante = new Role();
+//        rolEstudiante.setId(3L);
+//        rolEstudiante.setNombre("Estudiante");
+
+        // usuarios de la app Mobile no traen roles por ende son estudiantes
+//        if(usuario.getRoles().size() ==0) {
+//            usuario.getRoles().add( rolEstudiante);
+//        }
+//
+//        // Configura el rol que solicitó
+//        switch(usuario.getRoles().get(0).getNombre()){
+//            case "Docente / Tutor":
+//                usuario.getRoles().get(0).setId(2L);
+//                usuario.getRoles().add( rolEstudiante);
+//                break;
+//            case "Administrador":
+//                usuario.getRoles().get(0).setId(1L);
+//                usuario.getRoles().add( rolEstudiante);
+//                break;
+//            case "Estudiante":
+//                usuario.getRoles().get(0).setId(3L);
+//                usuario.setEstado(1);
+//                break;
+//        }
+        Usuario nuevoUsuario = repository.save(usuario);
+//        if(usuario.getRoles().size() == 1){
+//            // para usuarios estudiantes
+//            GrupoEstudiante grupoEstudiante = new GrupoEstudiante();
+//            Grupo grupoInvitado = grupoService.findById(5);
+//            grupoEstudiante.setGrupo(grupoInvitado);
+//            grupoEstudiante.setUsuarioestudiante(nuevoUsuario);
+//            grupoEstudianteService.create(grupoEstudiante);
+//        }
+        return  nuevoUsuario;
     }
 
     public void delete(Usuario Usuario) throws ResourceNotFoundException {
@@ -139,12 +234,24 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         }
     }
 
-    public Usuario update(Usuario Usuario) throws ResourceNotFoundException {
-        if (repository.findById(Usuario.getId()).isPresent())
+    public Usuario update(Usuario usuario) throws ResourceNotFoundException {
+        Optional<Usuario> usuarioConsultado = repository.findById(usuario.getId());
+        if (usuarioConsultado.isPresent())
         {
-            return repository.save(Usuario);
+            usuarioConsultado.get().setEmail(usuario.getEmail());
+            usuarioConsultado.get().setUsername(usuario.getUsername());
+            usuarioConsultado.get().setNombre(usuario.getNombre());
+            String clave = usuario.getPassword();
+            if(clave.length() <= 10)  {
+                clave = passwordEncoder.encode(usuario.getPassword());
+            }
+            usuarioConsultado.get().setPassword(clave);
+            if(usuario.getAvatar() == null && usuarioConsultado.get().getAvatar() == null) {
+                usuarioConsultado.get().setAvatar("av-1.png");
+            }
+            return repository.save(usuarioConsultado.get());
         }
-        throw new ResourceNotFoundException("User", "id", Integer.toString(Usuario.getId()));
+        throw new ResourceNotFoundException("User", "id", Integer.toString(usuario.getId()));
     }
 
     @Override
@@ -154,4 +261,13 @@ public class UsuarioService extends  BaseService<Usuario> implements IGenericSer
         return (ResultSearchData<Usuario>) this.getResultSearch(pagedResult);
     }
 
+    @Override
+    public List<Usuario> findAllStudends() {
+        return repository.findAllStudendts();
+    }
+
+    @Override
+    public List<Usuario> findAllTeachers() {
+        return repository.findAllTeachers();
+    }
 }

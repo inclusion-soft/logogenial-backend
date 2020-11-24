@@ -1,5 +1,9 @@
 package com.rc.logogenial.basicadminservice.exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.CONFLICT)
 public class ErrorPersistException extends RuntimeException {
 
     /** The Constant serialVersionUID. */
