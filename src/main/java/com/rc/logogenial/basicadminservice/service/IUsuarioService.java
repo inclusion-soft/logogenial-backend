@@ -6,6 +6,8 @@ import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import java.util.List;
 
 public interface IUsuarioService<T> extends IGenericService<T> {
+    Usuario getUserLogged();
+
     Usuario findByUsername(String name);
     List<Usuario> findAllStudends ();
     List<Usuario> findAllTeachers ();

@@ -51,6 +51,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
     public Usuario getUserLogged() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
