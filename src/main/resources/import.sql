@@ -1,6 +1,6 @@
 INSERT INTO usuario (id,nombre,apellido, email, username, password, estado, intentos_exitosos, intentos_fallidos, avatar) VALUES (1,'Nelson', 'Camacho', 'nc@mail.co', 'nelson.camacho',  '$2a$10$5VYzA1qYNJVV7UqB/vOGAOH8fPQeurb.B6or.6iTMLCEdMjRrRb/q',1,0,0,'av-1.png');
 INSERT INTO usuario (id,nombre,apellido, email, username, password, estado, intentos_exitosos, intentos_fallidos, avatar) VALUES (2,'carlos', 'romero', 'cr@mail.co', 'carlos.romero',  '$2a$10$HEBKG0QeXV0u3ftVanWP0.SF/QUs4//C2FAYeAZL0SONM0UEMXw6q',1,0,0,'av-1.png');
-INSERT INTO usuario (id, activo, apellido, eliminado, email, estado, intentos_exitosos, intentos_fallidos, nombre, password, username, avatar) VALUES (4, true, 'admin', null, 'admin@mail.co', 0, 2, 0, 'admin', '$2a$10$pP9MI7Kg4FBGprc3BnuHFuKu6uUCY45ovz.TFgyhRp2CMsJEXV9xi', 'admin','av-1.png');
+INSERT INTO usuario (id, activo, apellido, eliminado, email, estado, intentos_exitosos, intentos_fallidos, nombre, password, username, avatar) VALUES (4, true, 'admin', null, 'admin@mail.co', 0, 2, 0, 'admin', '$2a$10$Dp6O.xuC2TPhab/.oONB3.cjjpL/SePcK8XWNNq8EQhdsefmDR84S', 'admin','av-1.png');
 INSERT INTO usuario (id, activo, apellido, avatar, eliminado, email, estado, intentos_exitosos, intentos_fallidos, nombre, password, username) VALUES (6, true, 'Romero', 'av-5.png', null, 'isabellaromero@gmail.com', 1, 1, 0, 'Isabella', '$2a$10$EN0ruIGWuRrriERXhxSj6O24.7OccW3jj5j1Ap7wvg/RsP5/F8Czi', 'isabellaromero@gmail.com');
 INSERT INTO usuario (id, activo, apellido, avatar, eliminado, email, estado, intentos_exitosos, intentos_fallidos, nombre, password, username) VALUES (8, true, 'camacho', 'av-5.png', null, 'conycamacho@mail.co', 1, 1, 0, 'cony', '$2a$10$MjFn0nHetF2sHBFC3OASQOs/i5NGMBntaum7T0R3EldjdaMVO4fPm', 'conycamacho@mail.co');
 
@@ -68,6 +68,12 @@ INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado
 INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (15, true, 15, true, 9, to_date('09-09-1999','dd-mm-yyyy'), 'con mi mama y mi hermana en la playa', 'vacaciones-familia', 1);
 INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (17, true, 17, true, 3, to_date('09-09-1999','dd-mm-yyyy'), 'montañas', 'montaña', 1);
 INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES (18, true, 18, true, 5, to_date('09-09-1999','dd-mm-yyyy'), 'paisaje', 'paisaje', 1);
+
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES
+(20,true,20,true,2,to_date('09-09-1999','dd-mm-yyyy'),encima de,test-datagenia,1);
+
+INSERT INTO datagenia (id, activo, archivo_id, compartido, dificultad, eliminado, frase, nombre, usuario_creador_id) VALUES
+(21,true,21,true,3,to_date('09-09-1999','dd-mm-yyyy'),'debajo de','Debajo de',1);
 
 INSERT INTO grupo_nivel (id, activo, eliminado, grupo_id, nivel_id) VALUES (1, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 1);
 INSERT INTO grupo_nivel (id, activo, eliminado, grupo_id, nivel_id) VALUES (2, true, to_date('09-09-1999','dd-mm-yyyy'), 2, 2);

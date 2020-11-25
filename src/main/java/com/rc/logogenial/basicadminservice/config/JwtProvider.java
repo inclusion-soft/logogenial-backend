@@ -58,7 +58,7 @@ public class JwtProvider {
                 .claim("id", user.getId())
                 .claim("avatar", user.getAvatar())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
+                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*100))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }

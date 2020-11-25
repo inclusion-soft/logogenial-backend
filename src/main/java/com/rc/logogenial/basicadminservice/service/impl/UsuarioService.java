@@ -28,6 +28,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,13 +61,10 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
         return repository.findByUsername(userDetails.getUsername());
     }
 
-
-
-
-
     @Override
     public UsuarioDto createSecure(UsuarioDto usuarioDto) throws ResourceFoundException, ResourceNotFoundException {
         Usuario usuario = convertDtoToEntity(usuarioDto); //repository.findByUsernameOrEmail(usuario.getUsername(), usuario.getEmail());
+        //MessageDigestPasswordEncoder encoder = new MessageDigestPasswordEncoder("SHA-1");
         String clave = passwordEncoder.encode(usuario.getPassword());
         usuario.setPassword(clave);
         usuario.setUsername(usuarioDto.getEmail());
