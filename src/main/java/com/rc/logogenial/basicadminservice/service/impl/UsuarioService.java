@@ -1,5 +1,6 @@
 package com.rc.logogenial.basicadminservice.service.impl;
 
+import com.rc.logogenial.basicadminservice.config.AESEncryptionDecryption;
 import com.rc.logogenial.basicadminservice.entity.Grupo;
 import com.rc.logogenial.basicadminservice.entity.GrupoEstudiante;
 import com.rc.logogenial.basicadminservice.entity.Role;
@@ -50,7 +51,7 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
     private GrupoService grupoService;
 
     private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
-
+    private AESEncryptionDecryption aesEncryption = new AESEncryptionDecryption();
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -67,7 +68,9 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
         //MessageDigestPasswordEncoder encoder = new MessageDigestPasswordEncoder("SHA-1");
         String clave = passwordEncoder.encode(usuario.getPassword());
         usuario.setPassword(clave);
-        usuario.setUsername(usuarioDto.getEmail());
+        String correo = aesEncryption.encrypt(usuario.getEmail());
+        usuario.setUsername(correo);
+        usuario.setEmail(correo);
         usuario.setIntentosExitosos(0L);
         usuario.setIntentosFallidos(0L);
         Usuario nuevoUsuario = repository.save(usuario);
@@ -82,7 +85,8 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
         dto.setApellido(entity.getApellido());
         dto.setEstado(entity.getActivo().equals(true) ? 1: 0);
         dto.setActivo(entity.getActivo());
-        dto.setEmail(entity.getEmail());
+        String correo = aesEncryption.decrypt(entity.getEmail());
+        dto.setEmail(correo);
         dto.setAvatar(entity.getAvatar());
         for(Role rolEntity: entity.getRoles()){
             dto.getRoles().add(rolEntity.getNombre());

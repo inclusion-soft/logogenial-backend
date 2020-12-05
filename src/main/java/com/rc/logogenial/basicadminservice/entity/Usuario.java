@@ -46,7 +46,7 @@ public class Usuario implements Serializable {
     @Column(name = "INTENTOS_EXITOSOS")
     private Long intentosExitosos;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -58,6 +58,10 @@ public class Usuario implements Serializable {
     @Column(name = "activo", columnDefinition = "BOOLEAN NOT NULL DEFAULT TRUE")
     @Builder.Default
     public Boolean activo = true;
+
+    @Column(name = "bloqueado", columnDefinition = "BOOLEAN NOT NULL DEFAULT FALSO")
+    @Builder.Default
+    public Boolean bloqueado = true;
 
     @Column(name = "eliminado")
     public Date eliminado;

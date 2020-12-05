@@ -10,6 +10,7 @@ import com.rc.logogenial.basicadminservice.config.models.JwtResponse;
 import com.rc.logogenial.basicadminservice.config.models.Login;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ErrorPersistException;
+import com.rc.logogenial.basicadminservice.exception.MaxTryCountLoginException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.exception.UnauthorizedRequestException;
 import com.rc.logogenial.basicadminservice.service.impl.UsuarioService;
@@ -46,6 +47,8 @@ public class AuthorizationController {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    private AESEncryptionDecryption aesEncryption = new AESEncryptionDecryption();
+
     /** The user repository. */
     @Autowired
     UsuarioService usuarioService;
@@ -75,12 +78,16 @@ public class AuthorizationController {
         Authentication authentication = null;
         Long contador = 0L;
         if (loginRequest.getUsername() != null) {
-            Usuario user = usuarioService.findByUsername(loginRequest.getUsername());
+            String username = aesEncryption.encrypt(loginRequest.getUsername());
+            Usuario user = usuarioService.findByUsername(username);
+            if(user.getIntentosFallidos()> 2){
+                throw new MaxTryCountLoginException("Se ha superado el máximo de inténtos permitidos");
+            }
             if (user != null) {
                 try {
-                    if (user.getEstado()== 1 || user.getEstado() == 0) {
+                    if (user.getEstado()== 1) {
                         authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                                loginRequest.getUsername(), loginRequest.getPassword()));
+                                username, loginRequest.getPassword()));
 
                         if (authentication.isAuthenticated()) {
                             Long exitososPrevios = user.getIntentosExitosos() != null ? user.getIntentosExitosos()  : 0L;
