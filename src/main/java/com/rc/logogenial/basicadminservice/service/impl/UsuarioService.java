@@ -165,7 +165,19 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
 
         // Por defecto el usuario esta inactivo
         usuario.setEstado(0);
-
+        if(usuario.getRoles().get(0).getId()== null){
+            switch (usuario.getRoles().get(0).getNombre()){
+                case "ADMINISTRADOR":
+                    usuario.getRoles().get(0).setId(1L);
+                    break;
+                case "TUTOR":
+                    usuario.getRoles().get(0).setId(2L);
+                    break;
+                case "ESTUDIANTE":
+                    usuario.getRoles().get(0).setId(3L);
+                    break;
+            }
+        }
 //        Role rolEstudiante = new Role();
 //        rolEstudiante.setId(3L);
 //        rolEstudiante.setNombre("Estudiante");

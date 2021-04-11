@@ -59,9 +59,9 @@ public class Usuario implements Serializable {
     @Builder.Default
     public Boolean activo = true;
 
-    @Column(name = "bloqueado", columnDefinition = "BOOLEAN NOT NULL DEFAULT FALSO")
-    @Builder.Default
-    public Boolean bloqueado = true;
+//    @Column(name = "bloqueado", columnDefinition = "BOOLEAN NOT NULL DEFAULT FALSO")
+//    @Builder.Default
+//    public Boolean bloqueado = false;
 
     @Column(name = "eliminado")
     public Date eliminado;

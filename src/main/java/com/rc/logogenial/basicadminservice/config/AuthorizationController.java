@@ -79,7 +79,7 @@ public class AuthorizationController {
         Long contador = 0L;
         if (loginRequest.getUsername() != null) {
             String username = aesEncryption.encrypt(loginRequest.getUsername());
-            Usuario user = usuarioService.findByUsername(username);
+            Usuario user = usuarioService.findByUsername(loginRequest.getUsername());
             if(user.getIntentosFallidos()> 2){
                 throw new MaxTryCountLoginException("Se ha superado el máximo de inténtos permitidos");
             }
@@ -87,7 +87,7 @@ public class AuthorizationController {
                 try {
                     if (user.getEstado()== 1) {
                         authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                                username, loginRequest.getPassword()));
+                                loginRequest.getUsername(), loginRequest.getPassword()));
 
                         if (authentication.isAuthenticated()) {
                             Long exitososPrevios = user.getIntentosExitosos() != null ? user.getIntentosExitosos()  : 0L;
