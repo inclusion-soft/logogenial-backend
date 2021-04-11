@@ -96,8 +96,10 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
 
     private Usuario convertDtoToEntity(UsuarioDto dto) {
         Usuario entity = null;
+        dto.setUsername(dto.getEmail());
         if(dto.getId()> 0){
-            entity = findByUsername(dto.getUsername());
+            entity = findByUsername(dto.getEmail());
+            entity.getRoles().clear();
         }else {
             entity = new Usuario();
         }
@@ -247,6 +249,30 @@ public class UsuarioService extends  BaseService<Usuario> implements IUsuarioSer
             throw new ResourceNotFoundException("User", "id",  Integer.toString(id));
         }
     }
+
+    public UsuarioDto updateDto(UsuarioDto usuarioDto) throws ResourceNotFoundException {
+        Usuario usuario = convertDtoToEntity(usuarioDto);
+        Optional<Usuario> usuarioConsultado = repository.findById(usuario.getId());
+        if (usuarioConsultado.isPresent())
+        {
+            usuarioConsultado.get().setEmail(usuario.getEmail());
+            usuarioConsultado.get().setUsername(usuario.getUsername());
+            usuarioConsultado.get().setNombre(usuario.getNombre());
+            String clave = usuario.getPassword();
+            if(clave.length() <= 10)  {
+                clave = passwordEncoder.encode(usuario.getPassword());
+            }
+            usuarioConsultado.get().setPassword(clave);
+            if(usuario.getAvatar() == null && usuarioConsultado.get().getAvatar() == null) {
+                usuarioConsultado.get().setAvatar("av-1.png");
+            }
+            repository.save(usuarioConsultado.get());
+            return convertEntityToDto(usuarioConsultado.get());
+        }
+        throw new ResourceNotFoundException("User", "id", Integer.toString(usuario.getId()));
+    }
+
+
 
     public Usuario update(Usuario usuario) throws ResourceNotFoundException {
         Optional<Usuario> usuarioConsultado = repository.findById(usuario.getId());

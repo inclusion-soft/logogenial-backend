@@ -7,7 +7,6 @@ import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 import com.rc.logogenial.basicadminservice.exception.UnauthorizedRequestException;
 import com.rc.logogenial.basicadminservice.model.dto.UsuarioDto;
 import com.rc.logogenial.basicadminservice.model.shared.ResultSearchData;
-import com.rc.logogenial.basicadminservice.service.IGenericService;
 import com.rc.logogenial.basicadminservice.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -50,8 +49,8 @@ public class UsuarioController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Usuario> update(@RequestBody Usuario Usuario) throws ResourceNotFoundException {
-        return new ResponseEntity<>(usuarioService.update(Usuario), HttpStatus.OK);
+    public ResponseEntity<UsuarioDto> update(@RequestBody UsuarioDto usuario) throws ResourceNotFoundException {
+        return new ResponseEntity<UsuarioDto>(usuarioService.updateDto(usuario), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteById")

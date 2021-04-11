@@ -14,4 +14,6 @@ public interface IUsuarioService<T, Tdto> extends IGenericService<T> {
     Usuario findByUsername(String name);
     List<Usuario> findAllStudends ();
     List<Usuario> findAllTeachers ();
+
+    Tdto updateDto(Tdto usuario) throws ResourceNotFoundException;
 }
