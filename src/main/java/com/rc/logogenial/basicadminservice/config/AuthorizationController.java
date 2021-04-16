@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import com.rc.logogenial.basicadminservice.config.models.JwtResponse;
 import com.rc.logogenial.basicadminservice.config.models.Login;
+import com.rc.logogenial.basicadminservice.config.models.UsuarioConstructora;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
 import com.rc.logogenial.basicadminservice.exception.ErrorPersistException;
 import com.rc.logogenial.basicadminservice.exception.MaxTryCountLoginException;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -73,6 +75,7 @@ public class AuthorizationController {
      * @return the response entity
      * @throws UnauthorizedRequestException the unauthorized request exception
      */
+    @ApiIgnore
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@Valid @RequestBody Login loginRequest) throws UnauthorizedRequestException {
         Authentication authentication = null;
@@ -118,6 +121,14 @@ public class AuthorizationController {
                 throw new UnauthorizedRequestException("Usuario o clave incorrectos.");
             }
         }
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtProvider.generateJwtToken(authentication);
+        return ResponseEntity.ok(new JwtResponse(jwt));
+    }
+
+    @PostMapping("/generarToken")
+    public ResponseEntity<?> generarToken(@Valid @RequestBody UsuarioConstructora loginRequest) throws UnauthorizedRequestException {
+        Authentication authentication = null;
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateJwtToken(authentication);
         return ResponseEntity.ok(new JwtResponse(jwt));
