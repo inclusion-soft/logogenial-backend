@@ -39,7 +39,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
-public class AuthorizationController {
+public class AuthorizationRest {
 
     /** The ldap properties. */
 //    @Value("${spring.ldap.properties}")

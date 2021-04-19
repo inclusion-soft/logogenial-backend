@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
-public class DatosGeneralesDto {
+public class DatosVinculacionDto {
 
 	private String id;
 
@@ -48,7 +48,7 @@ public class DatosGeneralesDto {
 	
 //	private Boolean guardadoForm;
 
-	public DatosGeneralesDto() {
+	public DatosVinculacionDto() {
 	}
 
 //	public DatosGeneralesDto(DatosGeneralesEnti datosGenerales) {

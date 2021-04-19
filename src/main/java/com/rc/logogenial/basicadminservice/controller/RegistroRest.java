@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.rc.logogenial.basicadminservice.exception.CustomApplicationException;
 import com.rc.logogenial.basicadminservice.model.dto.RegistroTercero.CreacionTerceroDto;
+import com.rc.logogenial.basicadminservice.model.dto.fuv.DatosVinculacionDto;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.context.annotation.ComponentScan;
@@ -38,12 +39,15 @@ public class RegistroRest {
 	@CrossOrigin
 	@PostMapping("/crearTercero")
 	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Suceess|OK"),
-			@ApiResponse(code = 400, message = "idProyecto incorrecto"),
+			@ApiResponse(code = 200, message = "Suceess|OK", response = CreacionTerceroDto.class),
+			@ApiResponse(code = 500, message = "Error interno en el servicio", response = ErrorRequestCustom.class),
 			@ApiResponse(code = 401, message = "Falló la autenticación del usuario"),
 			@ApiResponse(code = 403, message = "El usuario no tiene permisos sobre el proyecto informado"),
 			@ApiResponse(code = 404, message = "El proyecto no existe") })
-	public ResponseEntity<CreacionTerceroDto> crearTercero(@RequestBody CreacionTerceroDto creacionTerceroDto)
+	public ResponseEntity<CreacionTerceroDto> crearTercero(
+			@RequestHeader(value="token", defaultValue = "aqui-token-obtenido-en-servicio-authorization-rest:/api/auth/generarToken") String token,
+			@RequestHeader(value="ip", defaultValue = "Este-campo-es-detectado-al-pasar-por-nuestro-Gateway", required = false) String ip,
+			@RequestBody CreacionTerceroDto terceroDto)
 			throws CustomApplicationException {
 		return new ResponseEntity<CreacionTerceroDto>(HttpStatus.OK);
 	}

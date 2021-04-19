@@ -2,14 +2,13 @@ package com.rc.logogenial.basicadminservice.controller;
 
 import com.rc.logogenial.basicadminservice.exception.CustomApplicationException;
 import com.rc.logogenial.basicadminservice.model.dto.*;
-import com.rc.logogenial.basicadminservice.model.dto.fuv.*;
-import com.rc.logogenial.basicadminservice.model.dto.RegistroTercero.CreacionTerceroDto;
-import com.rc.logogenial.basicadminservice.model.dto.fuv.DatosGeneralesDto;
+import com.rc.logogenial.basicadminservice.model.dto.fuv.DatosVinculacionDto;
 import com.rc.logogenial.basicadminservice.model.dto.fuv.EntrevistaDto;
 import com.rc.logogenial.basicadminservice.model.dto.fuv.IdentificacionBienDto;
 import com.rc.logogenial.basicadminservice.model.dto.fuv.InformacionFinancieraDto;
 import com.rc.logogenial.basicadminservice.model.dto.fuv.OperacionInternacionalDto;
 import com.rc.logogenial.basicadminservice.model.dto.fuv.OrigenFondoDto;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
@@ -45,14 +44,19 @@ public class FormularioUnicoVinculacionRest {
     @CrossOrigin
     @PostMapping("/editarFuv")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Suceess|OK"),
+            @ApiResponse(code = 200, message = "Suceess|OK", response = DatosVinculacionDto.class),
+            @ApiResponse(code = 500, message = "Error interno en el servicio", response = ErrorRequestCustom.class),
             @ApiResponse(code = 400, message = "idProyecto incorrecto"),
             @ApiResponse(code = 401, message = "Falló la autenticación del usuario"),
-            @ApiResponse(code = 403, message = "El usuario no tiene permisos sobre el proyecto informado"),
-            @ApiResponse(code = 404, message = "El proyecto no existe") })
-    public ResponseEntity<com.rc.logogenial.basicadminservice.model.dto.fuv.DatosGeneralesDto> editarFuv(@RequestParam String idProyecto, @RequestBody DatosGeneralesDto creacionTerceroDto)
+            @ApiResponse(code = 403, message = "El usuario no tiene permisos sobre el proyecto informado")
+    })
+    public ResponseEntity<DatosVinculacionDto> editarFuv(
+            @RequestHeader(value="token", defaultValue = "aqui-token-obtenido-en-servicio-authorization-rest:/api/auth/generarToken") String token,
+            @RequestHeader(value="ip", defaultValue = "Este-campo-es-detectado-al-pasar-por-nuestro-Gateway", required = false) String ip,
+            @RequestParam String idProyecto,
+            @RequestBody DatosVinculacionDto vinculacionDto)
             throws CustomApplicationException {
-        return new ResponseEntity<com.rc.logogenial.basicadminservice.model.dto.fuv.DatosGeneralesDto>(HttpStatus.OK);
+        return new ResponseEntity<DatosVinculacionDto>(HttpStatus.OK);
     }
 
     /**
@@ -98,12 +102,12 @@ public class FormularioUnicoVinculacionRest {
     //@KafkaLogExecution
     @PostMapping("/guardarSeccionDatosGenerales/{idUsuario}/{idEncargo}")
     public ResponseEntity<?> guardarDatosGenerales(@PathVariable("idUsuario") long idUsuario,
-                                                   @PathVariable("idEncargo") long idEncargo, @RequestBody DatosGeneralesDto datosGenerales) {
+                                                   @PathVariable("idEncargo") long idEncargo, @RequestBody DatosVinculacionDto datosGenerales) {
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
     @ApiIgnore
-    private String validarDatosGenerales(DatosGeneralesDto datosGenerales, long idUsuario, long idEncargo) {
+    private String validarDatosGenerales(DatosVinculacionDto datosGenerales, long idUsuario, long idEncargo) {
         return new String();
     }
 

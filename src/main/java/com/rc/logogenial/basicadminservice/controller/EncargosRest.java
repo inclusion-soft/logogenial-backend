@@ -16,8 +16,8 @@ public class EncargosRest {
 
     @GetMapping("/consultar")
     public ResponseEntity<List<EncargosDto>> consultar(
-//            @RequestHeader(value="token") String token,
-//            @RequestHeader(value="ip") String ip,
+            @RequestHeader(value="token", defaultValue = "aqui-token-obtenido-en-servicio-authorization-rest:/api/auth/generarToken") String token,
+            @RequestHeader(value="ip", defaultValue = "Este-campo-es-detectado-al-pasar-por-nuestro-Gateway", required = false) String ip,
             @RequestParam Long idProyecto
             ) {
         List<EncargosDto> datos = null;
