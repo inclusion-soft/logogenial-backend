@@ -1,19 +1,15 @@
 package com.rc.logogenial.basicadminservice.service;
 
+import com.rc.logogenial.basicadminservice.domain.dto.UsuarioDto;
 import com.rc.logogenial.basicadminservice.entity.Usuario;
-import com.rc.logogenial.basicadminservice.exception.ResourceFoundException;
 import com.rc.logogenial.basicadminservice.exception.ResourceNotFoundException;
 
 import java.util.List;
 
-public interface IUsuarioService<T, Tdto> extends IGenericService<T> {
-    Usuario getUserLogged();
+public interface IUsuarioService<T> extends IGenericService<T> {
+    UsuarioDto getUserLogged();
 
-    Tdto createSecure(Tdto tdto) throws ResourceFoundException, ResourceNotFoundException;
-
-    Usuario findByUsername(String name);
-    List<Usuario> findAllStudends ();
-    List<Usuario> findAllTeachers ();
-
-    Tdto updateDto(Tdto usuario) throws ResourceNotFoundException;
+    UsuarioDto findByUsername(String name);
+    List<UsuarioDto> findAllStudends ();
+    List<UsuarioDto> findAllTeachers ();
 }

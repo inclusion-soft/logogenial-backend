@@ -24,8 +24,6 @@ public class JwtProvider {
     /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
-    private AESEncryptionDecryption aesEncryption = new AESEncryptionDecryption();
-
     /** The jwt secret. */
     @Value("${app.jwt.secret}")
     private String jwtSecret;
@@ -46,23 +44,21 @@ public class JwtProvider {
      */
     public String generateJwtToken(Authentication authentication) {
 
-        Usuario user = userRepository.findByUsername(authentication.getName());
+        Usuario user = userRepository.findEntityByUsername(authentication.getName());
 
         if (user == null) {
-            throw new UsernameNotFoundException("Usuario no encontrado con el correo (username) : " + authentication.getName());
+            throw new UsernameNotFoundException("User Not Found with -> username or email : " + authentication.getName());
         }
-
-        String correo = aesEncryption.decrypt(user.getEmail());
 
         return Jwts.builder()
                 .setSubject((user.getUsername()))
                 .claim("nombre",user.getNombre())
                 .claim("apellido",user.getApellido())
-                .claim("email", correo)
+                .claim("email", user.getEmail())
                 .claim("id", user.getId())
                 .claim("avatar", user.getAvatar())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*3600000))
+                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
