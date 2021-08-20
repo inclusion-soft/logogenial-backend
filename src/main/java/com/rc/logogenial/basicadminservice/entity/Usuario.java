@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,28 +39,24 @@ public class Usuario implements Serializable {
 
     /** The Intentos fallidos. */
     @Column(name = "INTENTOS_FALLIDOS")
-    private Long intentosFallidos;
+    private int intentosFallidos;
 
     /** The Intentos exitosos. */
     @Column(name = "INTENTOS_EXITOSOS")
-    private Long intentosExitosos;
+    private int intentosExitosos;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name="usuario_rol", joinColumns= @JoinColumn(name="usuario_id"),
             inverseJoinColumns=@JoinColumn(name="role_id"),
             uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
-    private List<Role> roles= new ArrayList<>();;
+    private List<Role> roles;
 
     @Column(name = "activo", columnDefinition = "BOOLEAN NOT NULL DEFAULT TRUE")
     @Builder.Default
     public Boolean activo = true;
-
-//    @Column(name = "bloqueado", columnDefinition = "BOOLEAN NOT NULL DEFAULT FALSO")
-//    @Builder.Default
-//    public Boolean bloqueado = false;
 
     @Column(name = "eliminado")
     public Date eliminado;
