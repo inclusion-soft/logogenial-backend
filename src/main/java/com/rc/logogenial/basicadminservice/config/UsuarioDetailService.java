@@ -54,4 +54,25 @@ public class UsuarioDetailService implements UserDetailsService {
                 authorities
         );
     }
+
+    @SneakyThrows
+    @Transactional
+    public UserDetails loadUserDetailByUsuario(UsuarioDto user ) throws UsernameNotFoundException {
+
+
+
+        if (user.getId() == 0 ) {
+            throw new ResourceNotFoundException(String.format("Usuario no encontrado ", user.getEmail() ));
+        }
+        List<GrantedAuthority> authorities = user.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol.getNombre())).collect(Collectors.toList());
+
+        return new UserPrincipal(
+                (long) user.getId(),
+                user.getNombre() + " " + user.getApellido(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                authorities
+        );
+    }
 }
