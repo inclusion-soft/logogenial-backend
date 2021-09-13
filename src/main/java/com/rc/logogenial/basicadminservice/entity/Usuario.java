@@ -1,9 +1,6 @@
 package com.rc.logogenial.basicadminservice.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +11,9 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "usuario", uniqueConstraints = @UniqueConstraint(name = "usuario_uk", columnNames = "username"))
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuario implements Serializable {
 
     @Id
