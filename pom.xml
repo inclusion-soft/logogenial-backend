@@ -13,7 +13,7 @@
     <version>1.0</version>
     <name>micro-logogenial-back</name>
     <description>Servicio de entidades básicas: Nivel, Temas, Datagenias</description>
-
+    <!--  **** Otras propiedades  ****-->
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
