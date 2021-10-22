@@ -2,17 +2,20 @@ package com.rc.logogenial.basicadminservice.service.impl;
 
 import com.rc.logogenial.basicadminservice.entity.Grupo;
 import com.rc.logogenial.basicadminservice.service.IGrupoService;
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
+@TestInstance(Lifecycle.PER_CLASS)
 public class GrupoServiceTest {
     @Mock
     private IGrupoService iGrupoService;
@@ -21,17 +24,17 @@ public class GrupoServiceTest {
     GrupoService grupoService;
     private Grupo grupo;
 
-    @Before
+    @BeforeAll
     public void init(){
-        MockitoAnnotations.initMocks(this);
+        initMocks(this);
         grupo = new Grupo(1, "", 0, null, true, new Date("1999/09/09"));
-        when(iGrupoService.findByNombre("mi-grupo")).thenReturn(grupo);
+        Mockito.when(iGrupoService.findByNombre("mi-grupo")).thenReturn(grupo);
 
     }
 
     @Test
     public void findById() {
-        assertEquals(grupo, iGrupoService.findByNombre("mi-grupo"));
+        Assertions.assertThat(grupo).isEqualTo(iGrupoService.findByNombre("mi-grupo"));
     }
 
 }

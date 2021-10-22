@@ -1,8 +1,6 @@
 package com.rc.logogenial.basicadminservice.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -17,6 +15,7 @@ import java.util.Date;
 @Table(name="nivel", uniqueConstraints = @UniqueConstraint(name = "nivel_uk", columnNames = "nombre"))
 @SQLDelete(sql = "UPDATE nivel SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "eliminado = to_date('09-09-1999','dd-mm-yyyy')")
+@AllArgsConstructor
 public class Nivel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +38,7 @@ public class Nivel {
     @Builder.Default
     private Date eliminado = new Date("1999/09/09");
 
+    public Nivel() {
 
+    }
 }
