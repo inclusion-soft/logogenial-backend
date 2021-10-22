@@ -1,5 +1,6 @@
 package com.rc.logogenial.basicadminservice.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import java.util.Date;
 @Table(name="grupo", uniqueConstraints = @UniqueConstraint(name = "grupo_uk", columnNames = "nombre"))
 @SQLDelete(sql = "UPDATE grupo SET eliminado = current_date WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "eliminado = to_date('09-09-1999','dd-mm-yyyy')")
+@AllArgsConstructor
 public class Grupo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
