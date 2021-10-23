@@ -17,13 +17,9 @@ import java.util.UUID;
 @EnableTransactionManagement
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
-
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-    // only guardar() no database commit
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-    public class INivelRepositoryTest {
+    class INivelRepositoryTest {
 
     @Autowired
     private INivelRepository repository;
@@ -39,21 +35,21 @@ import java.util.UUID;
 
     @Test
     @Order(1)
-    public void guardar(){
+    void guardar(){
         nivelPrueba  = repository.save(nivelPrueba);
         Assertions.assertThat(nivelPrueba.getId()).isGreaterThan(0);
     }
 
     @Test
     @Order(2)
-    public void buscarPorNombre(){
+    void buscarPorNombre(){
         Nivel nivelBuscado = repository.findByNombre(nivelPrueba.getNombre());
         Assertions.assertThat(nivelBuscado).isNotNull();
     }
 
     @Test
     @Order(3)
-    public void eliminarPorNombre(){
+    void eliminarPorNombre(){
         Nivel nivelBuscado = repository.findByNombre(nivelPrueba.getNombre());
         repository.delete(nivelBuscado);
         Nivel nivelEliminado = repository.findByNombre(nivelPrueba.getNombre());
