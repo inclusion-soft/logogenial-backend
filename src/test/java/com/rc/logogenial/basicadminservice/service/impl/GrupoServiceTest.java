@@ -16,7 +16,7 @@ import java.util.Date;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @TestInstance(Lifecycle.PER_CLASS)
-public class GrupoServiceTest {
+class GrupoServiceTest {
     @Mock
     private IGrupoService iGrupoService;
 
@@ -33,7 +33,7 @@ public class GrupoServiceTest {
     }
 
     @Test
-    public void findById() {
+    void findById() {
         Assertions.assertThat(grupo).isEqualTo(iGrupoService.findByNombre("mi-grupo"));
     }
 
