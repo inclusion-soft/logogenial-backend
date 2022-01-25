@@ -133,6 +133,11 @@ INSERT INTO avance_pregunta (id, activo, eliminado, fecha_creacion, puntaje, res
 INSERT INTO avance_pregunta (id, activo, eliminado, fecha_creacion, puntaje, resultado, tipo_avance, usuario_estudiante_id, pregunta, respuesta_pregunta) VALUES (29, true, to_date('09-09-1999','dd-mm-yyyy'), to_timestamp('2020-11-04 22:42','yyyy-mm-dd HH24:MI')  , 0, 2, 2, 6, 5, 9);
 INSERT INTO avance_pregunta (id, activo, eliminado, fecha_creacion, puntaje, resultado, tipo_avance, usuario_estudiante_id, pregunta, respuesta_pregunta) VALUES (30, true, to_date('09-09-1999','dd-mm-yyyy'), to_timestamp('2020-11-04 22:42','yyyy-mm-dd HH24:MI') , 500, 1, 1, 6, 5, null);
 
+INSERT INTO MARCA (id, activo,  nombre, eliminado) VALUES (1, true,  'DELL', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO MARCA (id, activo,  nombre, eliminado) VALUES (2, true,  'HP', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO MARCA (id, activo,  nombre, eliminado) VALUES (3, true,  'ACER', to_date('09-09-1999','dd-mm-yyyy'));
+INSERT INTO MARCA (id, activo,  nombre, eliminado) VALUES (4, true,  'MAC', to_date('09-09-1999','dd-mm-yyyy'));
+
 SELECT setval('usuario_id_seq', (SELECT MAX(id) FROM usuario)+1);
 SELECT setval('grupo_id_seq', (SELECT MAX(id) FROM grupo)+1);
 SELECT setval('datagenia_id_seq', (SELECT MAX(id) FROM datagenia)+1);
@@ -146,3 +151,4 @@ SELECT setval('pregunta_id_seq', (SELECT MAX(id) FROM PREGUNTA)+1);
 SELECT setval('opcion_respuesta_id_seq', (SELECT MAX(id) FROM opcion_respuesta)+1);
 SELECT setval('grupo_estudiante_id_seq', (SELECT MAX(id) FROM grupo_estudiante)+1);
 SELECT setval('avance_pregunta_id_seq', (SELECT MAX(id) FROM avance_pregunta)+1);
+SELECT setval('encuesta_id_seq', (SELECT MAX(id) FROM encuesta)+1);
